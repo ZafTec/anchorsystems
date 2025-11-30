@@ -2,12 +2,17 @@ import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
+    console.debug('=== Contact Form API Called ===');
+
     try {
         const body = await request.json();
+        console.debug('Request body:', body);
+
         const { name, email, company, phone, message, serviceInterest } = body;
 
         // Validate required fields
         if (!name || !email || !message) {
+            console.debug('Validation failed: Missing required fields');
             return NextResponse.json(
                 { error: 'Name, email, and message are required' },
                 { status: 400 }
@@ -17,11 +22,14 @@ export async function POST(request: NextRequest) {
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
+            console.debug('Validation failed: Invalid email format');
             return NextResponse.json(
                 { error: 'Invalid email format' },
                 { status: 400 }
             );
         }
+
+        console.debug('Attempting database insert...');
 
         // Insert into database
         const result = await query(
@@ -30,6 +38,8 @@ export async function POST(request: NextRequest) {
        RETURNING id, created_at`,
             [name, email, company || null, phone || null, message, serviceInterest || null]
         );
+
+        console.debug('Database insert successful!', result.rows[0]);
 
         return NextResponse.json(
             {
@@ -41,7 +51,11 @@ export async function POST(request: NextRequest) {
             { status: 201 }
         );
     } catch (error) {
-        console.error('Contact form submission error:', error);
+        console.error('=== Contact Form Error ===');
+        console.error('Error type:', error?.constructor?.name);
+        console.error('Error message:', error instanceof Error ? error.message : 'Unknown');
+        console.error('Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+        console.error('Full error object:', error);
 
         return NextResponse.json(
             {
