@@ -1,5 +1,6 @@
 import PricingTable from '@/components/PricingTable';
 import FAQ from '@/components/FAQ';
+import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
 
 export const metadata = {
@@ -177,16 +178,7 @@ export default function RagSystemsPage() {
             <PricingTable tiers={pricingTiers} />
             <FAQ items={faqs} />
 
-            {/* CTA */}
-            <div className="bg-gradient-to-r from-blue-900 to-teal-900 py-16 text-center">
-                <div className="max-w-4xl mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-white mb-4">Unlock your organization&apos;s knowledge</h2>
-                    <p className="text-blue-100 mb-8">Stop searching, start finding.</p>
-                    <Link href="mailto:euaelmeko@gmail.com" className="bg-white text-blue-900 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
-                        Contact Us
-                    </Link>
-                </div>
-            </div>
+            <ContactForm serviceInterest="RAG Systems" />
         </div>
     );
 }

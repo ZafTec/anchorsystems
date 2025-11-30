@@ -1,5 +1,6 @@
 import PricingTable from '@/components/PricingTable';
 import FAQ from '@/components/FAQ';
+import ContactForm from '@/components/ContactForm';
 import Link from 'next/link';
 
 export const metadata = {
@@ -110,7 +111,7 @@ export default function LLMChatbotPage() {
                                 </li>
                                 <li className="flex items-start">
                                     <span className="text-red-400 mr-2">✗</span>
-                                    Generic bots frustrate users ("I didn&apos;t understand that")
+                                    Generic bots frustrate users (&quot;I didn&apos;t understand that&quot;)
                                 </li>
                                 <li className="flex items-start">
                                     <span className="text-red-400 mr-2">✗</span>
@@ -167,16 +168,7 @@ export default function LLMChatbotPage() {
             <PricingTable tiers={pricingTiers} />
             <FAQ items={faqs} />
 
-            {/* CTA */}
-            <div className="bg-gradient-to-r from-blue-900 to-teal-900 py-16 text-center">
-                <div className="max-w-4xl mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-white mb-4">Ready to automate your support?</h2>
-                    <p className="text-blue-100 mb-8">Get a custom demo trained on your website content.</p>
-                    <Link href="mailto:euaelmeko@gmail.com" className="bg-white text-blue-900 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors">
-                        Contact Us
-                    </Link>
-                </div>
-            </div>
+            <ContactForm serviceInterest="LLM Chatbot" />
         </div>
     );
 }

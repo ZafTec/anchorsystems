@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import FeatureSection from "@/components/FeatureSection";
+import ContactForm from "@/components/ContactForm";
 
 export default function Home() {
   return (
@@ -38,23 +39,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-900 to-teal-900 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-4">
-            Ready to transform your business?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Let&apos;s build the future of your customer interactions together.
-          </p>
-          <a
-            href="mailto:euaelmeko@gmail.com"
-            className="inline-block bg-white text-blue-900 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            Contact Us Today
-          </a>
-        </div>
-      </div>
+      <ContactForm />
     </>
   );
 }
