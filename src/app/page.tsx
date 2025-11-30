@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Hero from "@/components/Hero";
 import FeatureSection from "@/components/FeatureSection";
 
@@ -46,7 +45,7 @@ export default function Home() {
             Ready to transform your business?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Let's build the future of your customer interactions together.
+            Let&apos;s build the future of your customer interactions together.
           </p>
           <a
             href="mailto:euaelmeko@gmail.com"
