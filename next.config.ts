@@ -5,17 +5,12 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   // Enable React Compiler for automatic optimizations
-  experimental: {
-    reactCompiler: true,
-  },
+  reactCompiler: true,
 
   // Optimize production builds
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
-
-  // Enable SWC minification
-  swcMinify: true,
 };
 
 export default nextConfig;
