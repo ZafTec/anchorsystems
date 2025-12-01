@@ -45,7 +45,7 @@ export const getPool = () => {
     return pool;
 };
 
-export const query = async (text: string, params?: any[]) => {
+export const query = async (text: string, params?: unknown[]) => {
     try {
         const pool = getPool();
         const result = await pool.query(text, params);

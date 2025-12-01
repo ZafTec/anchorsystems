@@ -16,7 +16,7 @@ describe('Contact API Route', () => {
     jest.clearAllMocks();
   });
 
-  const createMockRequest = (body: any) => {
+  const createMockRequest = (body: Record<string, unknown>) => {
     const request = new Request('http://localhost:3000/api/contact', {
       method: 'POST',
       headers: {
@@ -24,7 +24,8 @@ describe('Contact API Route', () => {
       },
       body: JSON.stringify(body),
     });
-    return request as any;
+    // NextRequest is compatible with Request
+    return request as unknown as Request;
   };
 
   it('successfully submits a valid contact form', async () => {

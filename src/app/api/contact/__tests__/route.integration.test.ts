@@ -1,5 +1,8 @@
 /**
  * @jest-environment node
+ */
+
+/**
  * Integration tests with real PostgreSQL database
  * These tests require DATABASE_URL to be set
  */
@@ -54,7 +57,7 @@ describe('Contact API Route - Integration Tests', () => {
     }
   });
 
-  const createMockRequest = (body: any) => {
+  const createMockRequest = (body: Record<string, unknown>) => {
     const request = new Request('http://localhost:3000/api/contact', {
       method: 'POST',
       headers: {
@@ -62,7 +65,8 @@ describe('Contact API Route - Integration Tests', () => {
       },
       body: JSON.stringify(body),
     });
-    return request as any;
+    // NextRequest is compatible with Request
+    return request as unknown as Request;
   };
 
   it('should insert a contact submission into the real database', async () => {
