@@ -10,9 +10,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    # PostgreSQL service for integration tests
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: anchorsystems_test
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     strategy:
       matrix:
         node-version: [20.x]
+
+    env:
+      DATABASE_URL: 'Host=localhost;Port=5432;Database=anchorsystems_test;Username=test;Password=test'
 
     steps:
       - name: Checkout repository
@@ -26,6 +45,23 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Create database schema
+        run: |
+          PGPASSWORD=test psql -h localhost -U test -d anchorsystems_test -c "
+          CREATE TABLE IF NOT EXISTS contact_submissions (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            company VARCHAR(255),
+            phone VARCHAR(50),
+            message TEXT NOT NULL,
+            service_interest VARCHAR(100),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+          );"
 
       - name: Run linter
         run: npm run lint
