@@ -17,13 +17,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Anchor Systems | AI & RAG Solutions",
   description: "Custom LLM Chatbots and Enterprise RAG Systems tailored for your business.",
+  openGraph: {
+    title: "Anchor Systems | AI & RAG Solutions",
+    description: "Custom LLM Chatbots and Enterprise RAG Systems tailored for your business.",
+    url: "https://anchorsystems.ai", // Placeholder URL
+    siteName: "Anchor Systems",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Anchor Systems | AI & RAG Solutions",
+    description: "Custom LLM Chatbots and Enterprise RAG Systems tailored for your business.",
+  },
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-slate-950 text-slate-200`}>
