@@ -1,6 +1,14 @@
+import dynamic from "next/dynamic";
 import Hero from "@/components/Hero";
-import FeatureSection from "@/components/FeatureSection";
-import ContactForm from "@/components/ContactForm";
+
+// Dynamically import below-the-fold components for better performance
+const FeatureSection = dynamic(() => import("@/components/FeatureSection"), {
+  loading: () => <div className="h-96 bg-slate-950" />,
+});
+
+const ContactForm = dynamic(() => import("@/components/ContactForm"), {
+  loading: () => <div className="h-96 bg-slate-900" />,
+});
 
 export default function Home() {
   return (
