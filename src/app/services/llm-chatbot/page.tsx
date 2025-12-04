@@ -75,16 +75,16 @@ const faqs = [
 
 export default function LLMChatbotPage() {
     return (
-        <div className="bg-slate-950 min-h-screen">
+        <div className="bg-white dark:bg-slate-950 min-h-screen">
             {/* Hero Section */}
             <div className="relative py-20 lg:py-32 overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
                         Custom LLM Chatbots
-                        <span className="block text-teal-400">That Actually Understand You</span>
+                        <span className="block text-teal-600 dark:text-teal-400">That Actually Understand You</span>
                     </h1>
-                    <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-400">
+                    <p className="mt-6 max-w-2xl mx-auto text-xl text-slate-600 dark:text-gray-400">
                         Automate 60-80% of support tickets with AI agents trained on your unique business context.
                     </p>
                     <div className="mt-10">
@@ -99,39 +99,39 @@ export default function LLMChatbotPage() {
             </div>
 
             {/* Problem/Solution */}
-            <div className="py-16 bg-slate-900">
+            <div className="py-16 bg-slate-100 dark:bg-slate-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
                         <div>
-                            <h2 className="text-3xl font-extrabold text-white mb-6">Stop Losing Customers to Slow Support</h2>
-                            <ul className="space-y-4 text-gray-400">
+                            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">Stop Losing Customers to Slow Support</h2>
+                            <ul className="space-y-4 text-slate-600 dark:text-gray-400">
                                 <li className="flex items-start">
-                                    <span className="text-red-400 mr-2">✗</span>
+                                    <span className="text-red-500 dark:text-red-400 mr-2">✗</span>
                                     40% of tickets are repetitive FAQs
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-red-400 mr-2">✗</span>
+                                    <span className="text-red-500 dark:text-red-400 mr-2">✗</span>
                                     Generic bots frustrate users (&quot;I didn&apos;t understand that&quot;)
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-red-400 mr-2">✗</span>
+                                    <span className="text-red-500 dark:text-red-400 mr-2">✗</span>
                                     Slow response times lead to churn
                                 </li>
                             </ul>
                         </div>
                         <div className="mt-10 lg:mt-0">
-                            <h2 className="text-3xl font-extrabold text-white mb-6">The Anchor Systems Advantage</h2>
-                            <ul className="space-y-4 text-gray-400">
+                            <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-6">The Anchor Systems Advantage</h2>
+                            <ul className="space-y-4 text-slate-600 dark:text-gray-400">
                                 <li className="flex items-start">
-                                    <span className="text-teal-400 mr-2">✓</span>
+                                    <span className="text-teal-600 dark:text-teal-400 mr-2">✓</span>
                                     Trained on YOUR docs, tickets, and brand voice
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-teal-400 mr-2">✓</span>
+                                    <span className="text-teal-600 dark:text-teal-400 mr-2">✓</span>
                                     Handles complex workflows (refunds, account lookups)
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-teal-400 mr-2">✓</span>
+                                    <span className="text-teal-600 dark:text-teal-400 mr-2">✓</span>
                                     Seamless human handoff when needed
                                 </li>
                             </ul>
@@ -141,11 +141,11 @@ export default function LLMChatbotPage() {
             </div>
 
             {/* Features Grid */}
-            <div className="py-24">
+            <div className="py-24 bg-white dark:bg-slate-950">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-extrabold text-white">What We Build</h2>
-                        <p className="mt-4 text-gray-400">Not just a chatbot. A complete conversational AI system.</p>
+                        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">What We Build</h2>
+                        <p className="mt-4 text-slate-600 dark:text-gray-400">Not just a chatbot. A complete conversational AI system.</p>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {[
@@ -156,9 +156,9 @@ export default function LLMChatbotPage() {
                             { title: 'Secure Integration', desc: 'Connects safely with your CRM, Helpdesk, and Database.' },
                             { title: 'Continuous Learning', desc: 'Improves over time based on user feedback and new data.' },
                         ].map((feature) => (
-                            <div key={feature.title} className="p-6 bg-slate-900 rounded-lg border border-slate-800">
-                                <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
-                                <p className="text-gray-400">{feature.desc}</p>
+                            <div key={feature.title} className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+                                <p className="text-slate-600 dark:text-gray-400">{feature.desc}</p>
                             </div>
                         ))}
                     </div>

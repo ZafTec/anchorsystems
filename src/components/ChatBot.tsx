@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
 
 interface Message {
     id: string;
@@ -112,7 +113,7 @@ const ChatBot = () => {
             {/* Floating Chat Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-teal-500 hover:bg-teal-600 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
                 aria-label={isOpen ? 'Close chat' : 'Open chat'}
             >
                 {isOpen ? (
@@ -145,9 +146,9 @@ const ChatBot = () => {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] h-[500px] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+                <div className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] h-[500px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
                     {/* Header */}
-                    <div className="bg-gradient-to-r from-teal-600 to-teal-500 px-4 py-3 flex items-center gap-3">
+                    <div className="bg-linear-to-r from-teal-600 to-teal-500 px-4 py-3 flex items-center gap-3">
                         <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -196,20 +197,24 @@ const ChatBot = () => {
                                     className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
                                         message.role === 'user'
                                             ? 'bg-teal-500 text-white rounded-br-md'
-                                            : 'bg-slate-800 text-slate-200 rounded-bl-md'
+                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 rounded-bl-md prose prose-sm max-w-none dark:prose-invert'
                                     }`}
                                 >
-                                    {message.content}
+                                    {message.role === 'assistant' ? (
+                                        <ReactMarkdown>{message.content}</ReactMarkdown>
+                                    ) : (
+                                        message.content
+                                    )}
                                 </div>
                             </div>
                         ))}
                         {isLoading && (
                             <div className="flex justify-start">
-                                <div className="bg-slate-800 text-slate-200 px-4 py-2 rounded-2xl rounded-bl-md">
+                                <div className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 px-4 py-2 rounded-2xl rounded-bl-md">
                                     <div className="flex gap-1">
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                                        <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +230,7 @@ const ChatBot = () => {
                                     <button
                                         key={index}
                                         onClick={() => handleQuickAction(action.message)}
-                                        className="text-xs bg-slate-800 hover:bg-slate-700 text-teal-400 px-3 py-1.5 rounded-full border border-slate-700 hover:border-teal-500/50 transition-all"
+                                        className="text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-teal-600 dark:text-teal-400 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-teal-500/50 dark:hover:border-teal-500/50 transition-all"
                                     >
                                         {action.label}
                                     </button>
@@ -235,7 +240,7 @@ const ChatBot = () => {
                     )}
 
                     {/* Input */}
-                    <form onSubmit={handleSubmit} className="p-4 border-t border-slate-700">
+                    <form onSubmit={handleSubmit} className="p-4 border-t border-slate-200 dark:border-slate-700">
                         <div className="flex gap-2">
                             <input
                                 ref={inputRef}
@@ -243,13 +248,13 @@ const ChatBot = () => {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 placeholder="Type your message..."
-                                className="flex-1 bg-slate-800 border border-slate-700 rounded-full px-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                 disabled={isLoading}
                             />
                             <button
                                 type="submit"
                                 disabled={!inputValue.trim() || isLoading}
-                                className="w-10 h-10 bg-teal-500 hover:bg-teal-600 disabled:bg-slate-700 disabled:cursor-not-allowed rounded-full flex items-center justify-center transition-colors"
+                                className="w-10 h-10 bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-full flex items-center justify-center transition-colors"
                                 aria-label="Send message"
                             >
                                 <svg

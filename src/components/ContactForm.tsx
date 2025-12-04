@@ -64,21 +64,21 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
     };
 
     return (
-        <div className="bg-slate-900 py-16" id="contact">
+        <div className="bg-slate-100 dark:bg-slate-900 py-16" id="contact">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-8">
-                    <h2 className="text-3xl font-extrabold text-white">Get In Touch</h2>
-                    <p className="mt-4 text-gray-400">
+                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Get In Touch</h2>
+                    <p className="mt-4 text-slate-600 dark:text-gray-400">
                         Fill out the form below and we&apos;ll get back to you within 24 hours.
                     </p>
                 </div>
 
                 {submitStatus === 'success' ? (
                     <div className="text-center py-12">
-                        <div className="mb-6 p-6 bg-teal-900/30 border border-teal-500/50 rounded-xl text-teal-100 inline-block">
+                        <div className="mb-6 p-6 bg-teal-100 dark:bg-teal-900/30 border border-teal-500/50 rounded-xl text-teal-900 dark:text-teal-100 inline-block">
                             <div className="text-4xl mb-4">✓</div>
                             <h3 className="text-2xl font-bold mb-2">Message Sent!</h3>
-                            <p className="text-teal-200/80">
+                            <p className="text-teal-800 dark:text-teal-200/80">
                                 Thank you! Your message has been sent successfully.<br />
                                 We&apos;ll be in touch within 24 hours.
                             </p>
@@ -86,7 +86,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                         <div>
                             <button
                                 onClick={() => setSubmitStatus('idle')}
-                                className="text-teal-400 hover:text-teal-300 font-medium underline underline-offset-4 transition-colors"
+                                className="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium underline underline-offset-4 transition-colors"
                             >
                                 Send another message
                             </button>
@@ -95,7 +95,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                 ) : (
                     <>
                         {submitStatus === 'error' && (
-                            <div className="mb-6 p-4 bg-red-900/50 border border-red-500/50 rounded-lg text-red-100">
+                            <div className="mb-6 p-4 bg-red-100 dark:bg-red-900/50 border border-red-500/50 rounded-lg text-red-900 dark:text-red-100">
                                 ✗ {errorMessage || 'Something went wrong. Please try again.'}
                             </div>
                         )}
@@ -103,7 +103,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                         Name *
                                     </label>
                                     <input
@@ -113,13 +113,13 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                         required
                                         value={formData.name}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                         placeholder="Your name"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                         Email *
                                     </label>
                                     <input
@@ -129,7 +129,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                         required
                                         value={formData.email}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                         placeholder="you@company.com"
                                     />
                                 </div>
@@ -137,7 +137,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="company" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                         Company
                                     </label>
                                     <input
@@ -146,13 +146,13 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                         name="company"
                                         value={formData.company}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                         placeholder="Your company"
                                     />
                                 </div>
 
                                 <div>
-                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+                                    <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                         Phone
                                     </label>
                                     <input
@@ -161,14 +161,14 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                         name="phone"
                                         value={formData.phone}
                                         onChange={handleChange}
-                                        className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                        className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                         placeholder="+1 (555) 000-0000"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="serviceInterest" className="block text-sm font-medium text-gray-300 mb-2">
+                                <label htmlFor="serviceInterest" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                     Service Interest
                                 </label>
                                 <select
@@ -176,7 +176,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                     name="serviceInterest"
                                     value={formData.serviceInterest}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                                 >
                                     <option value="">Select a service</option>
                                     <option value="LLM Chatbot">LLM Chatbot Development</option>
@@ -187,7 +187,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                             </div>
 
                             <div>
-                                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                                <label htmlFor="message" className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-2">
                                     Message *
                                 </label>
                                 <textarea
@@ -197,7 +197,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                     rows={6}
                                     value={formData.message}
                                     onChange={handleChange}
-                                    className="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none"
+                                    className="w-full px-4 py-3 bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent resize-none"
                                     placeholder="Tell us about your project..."
                                 />
                             </div>
@@ -206,7 +206,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full bg-teal-500 hover:bg-teal-600 disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-lg transition-colors"
+                                    className="w-full bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed text-white font-bold py-3 px-8 rounded-lg transition-colors"
                                 >
                                     {isSubmitting ? 'Sending...' : 'Send Message'}
                                 </button>

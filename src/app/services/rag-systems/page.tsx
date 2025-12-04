@@ -74,16 +74,16 @@ const faqs = [
 
 export default function RagSystemsPage() {
     return (
-        <div className="bg-slate-950 min-h-screen">
+        <div className="bg-white dark:bg-slate-950 min-h-screen">
             {/* Hero Section */}
             <div className="relative py-20 lg:py-32 overflow-hidden">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl">
+                    <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl md:text-6xl">
                         Eliminate Hallucinations with
-                        <span className="block text-teal-400">Enterprise RAG Systems</span>
+                        <span className="block text-teal-600 dark:text-teal-400">Enterprise RAG Systems</span>
                     </h1>
-                    <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-400">
+                    <p className="mt-6 max-w-2xl mx-auto text-xl text-slate-600 dark:text-gray-400">
                         Ground your AI in truth. We build intelligent search pipelines that deliver accurate, cited answers from your proprietary data.
                     </p>
                     <div className="mt-10">
@@ -98,33 +98,33 @@ export default function RagSystemsPage() {
             </div>
 
             {/* Architecture Diagram/Explanation */}
-            <div className="py-16 bg-slate-900">
+            <div className="py-16 bg-slate-100 dark:bg-slate-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-extrabold text-white">How It Works</h2>
-                        <p className="mt-4 text-gray-400">From raw data to accurate answers.</p>
+                        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">How It Works</h2>
+                        <p className="mt-4 text-slate-600 dark:text-gray-400">From raw data to accurate answers.</p>
                     </div>
                     <div className="relative">
                         {/* Simple CSS-based flow visualization */}
                         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-                            <div className="p-6 bg-slate-950 rounded-lg border border-slate-800">
-                                <div className="text-teal-500 font-bold text-xl mb-2">1. Ingest</div>
-                                <p className="text-sm text-gray-400">Connect to PDFs, Databases, APIs</p>
+                            <div className="p-6 bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <div className="text-teal-600 dark:text-teal-500 font-bold text-xl mb-2">1. Ingest</div>
+                                <p className="text-sm text-slate-600 dark:text-gray-400">Connect to PDFs, Databases, APIs</p>
                             </div>
-                            <div className="hidden md:flex items-center justify-center text-gray-600">→</div>
-                            <div className="p-6 bg-slate-950 rounded-lg border border-slate-800">
-                                <div className="text-teal-500 font-bold text-xl mb-2">2. Index</div>
-                                <p className="text-sm text-gray-400">Vectorize and store in Vector DB</p>
+                            <div className="hidden md:flex items-center justify-center text-slate-400 dark:text-gray-600">→</div>
+                            <div className="p-6 bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <div className="text-teal-600 dark:text-teal-500 font-bold text-xl mb-2">2. Index</div>
+                                <p className="text-sm text-slate-600 dark:text-gray-400">Vectorize and store in Vector DB</p>
                             </div>
-                            <div className="hidden md:flex items-center justify-center text-gray-600">→</div>
-                            <div className="p-6 bg-slate-950 rounded-lg border border-slate-800">
-                                <div className="text-teal-500 font-bold text-xl mb-2">3. Retrieve</div>
-                                <p className="text-sm text-gray-400">Semantic search for relevant context</p>
+                            <div className="hidden md:flex items-center justify-center text-slate-400 dark:text-gray-600">→</div>
+                            <div className="p-6 bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <div className="text-teal-600 dark:text-teal-500 font-bold text-xl mb-2">3. Retrieve</div>
+                                <p className="text-sm text-slate-600 dark:text-gray-400">Semantic search for relevant context</p>
                             </div>
-                            <div className="hidden md:flex items-center justify-center text-gray-600">→</div>
-                            <div className="p-6 bg-slate-950 rounded-lg border border-slate-800">
-                                <div className="text-teal-500 font-bold text-xl mb-2">4. Generate</div>
-                                <p className="text-sm text-gray-400">LLM answers with citations</p>
+                            <div className="hidden md:flex items-center justify-center text-slate-400 dark:text-gray-600">→</div>
+                            <div className="p-6 bg-white dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-slate-800">
+                                <div className="text-teal-600 dark:text-teal-500 font-bold text-xl mb-2">4. Generate</div>
+                                <p className="text-sm text-slate-600 dark:text-gray-400">LLM answers with citations</p>
                             </div>
                         </div>
                     </div>
@@ -132,40 +132,40 @@ export default function RagSystemsPage() {
             </div>
 
             {/* Use Cases */}
-            <div className="py-24">
+            <div className="py-24 bg-white dark:bg-slate-950">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
-                        <h2 className="text-3xl font-extrabold text-white">Industry Applications</h2>
+                        <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white">Industry Applications</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div className="p-6 bg-slate-900 rounded-lg border border-slate-800">
-                            <h3 className="text-xl font-bold text-white mb-4">Legal & Compliance</h3>
-                            <p className="text-gray-400 mb-4">
+                        <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Legal & Compliance</h3>
+                            <p className="text-slate-600 dark:text-gray-400 mb-4">
                                 Instantly search thousands of contracts and case files.
                             </p>
-                            <ul className="text-sm text-gray-500 space-y-2">
+                            <ul className="text-sm text-slate-500 dark:text-gray-500 space-y-2">
                                 <li>• Clause comparison</li>
                                 <li>• Precedent search</li>
                                 <li>• Regulatory Q&A</li>
                             </ul>
                         </div>
-                        <div className="p-6 bg-slate-900 rounded-lg border border-slate-800">
-                            <h3 className="text-xl font-bold text-white mb-4">Healthcare</h3>
-                            <p className="text-gray-400 mb-4">
+                        <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Healthcare</h3>
+                            <p className="text-slate-600 dark:text-gray-400 mb-4">
                                 Clinical decision support grounded in medical protocols.
                             </p>
-                            <ul className="text-sm text-gray-500 space-y-2">
+                            <ul className="text-sm text-slate-500 dark:text-gray-500 space-y-2">
                                 <li>• Protocol retrieval</li>
                                 <li>• Drug interaction checks</li>
                                 <li>• Patient history summary</li>
                             </ul>
                         </div>
-                        <div className="p-6 bg-slate-900 rounded-lg border border-slate-800">
-                            <h3 className="text-xl font-bold text-white mb-4">Internal Knowledge</h3>
-                            <p className="text-gray-400 mb-4">
+                        <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">Internal Knowledge</h3>
+                            <p className="text-slate-600 dark:text-gray-400 mb-4">
                                 Stop answering the same &quot;how to&quot; questions on Slack.
                             </p>
-                            <ul className="text-sm text-gray-500 space-y-2">
+                            <ul className="text-sm text-slate-500 dark:text-gray-500 space-y-2">
                                 <li>• HR Policy Q&A</li>
                                 <li>• Technical Onboarding</li>
                                 <li>• Project Documentation</li>
