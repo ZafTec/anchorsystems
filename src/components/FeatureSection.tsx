@@ -41,9 +41,9 @@ const FeatureSection = () => {
                     <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
                         {features.map((feature) => (
                             <div key={feature.name} className="relative group">
-                                <div className="absolute -inset-1 bg-linear-to-r from-blue-600 to-teal-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                                <div className="relative p-8 bg-slate-50 dark:bg-slate-950 ring-1 ring-slate-200 dark:ring-slate-800 rounded-lg leading-none flex items-top justify-start space-x-6">
-                                    <div className="flex-shrink-0">
+                                <div className="absolute -inset-1 bg-linear-to-r from-blue-300 to-teal-600 rounded-lg blur opacity-0 dark:opacity-25 group-hover:opacity-50 dark:group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                                <div className="relative p-8 bg-slate-50 dark:bg-slate-950 ring-1 ring-slate-200 dark:ring-slate-800 rounded-lg leading-none flex items-top justify-start space-x-6 group-hover:ring-slate-300 dark:group-hover:ring-slate-700 transition-all">
+                                    <div className="shrink-0">
                                         <div className="flex items-center justify-center h-12 w-12 rounded-md bg-linear-to-r from-blue-500 to-teal-500 text-white">
                                             {feature.icon}
                                         </div>
