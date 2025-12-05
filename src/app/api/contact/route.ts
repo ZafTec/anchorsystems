@@ -1,6 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/db';
 
+export async function GET(request: NextRequest) {
+    try {
+        const { searchParams } = new URL(request.url);
+        const limit = parseInt(searchParams.get('limit') || '100');
+        const offset = parseInt(searchParams.get('offset') || '0');
+
+        const result = await query(
+            `SELECT id, name, email, company, phone, message, service_interest, created_at
+             FROM contact_submissions
+             ORDER BY created_at DESC
+             LIMIT $1 OFFSET $2`,
+            [limit, offset]
+        );
+
+        const countResult = await query(
+            `SELECT COUNT(*) as total FROM contact_submissions`
+        );
+        const total = parseInt(countResult.rows[0].total);
+
+        return NextResponse.json({
+            submissions: result.rows,
+            pagination: {
+                total,
+                limit,
+                offset,
+                hasMore: offset + limit < total,
+            },
+        });
+    } catch (error) {
+        console.error('Error fetching contact submissions:', error);
+        return NextResponse.json(
+            { error: 'Failed to fetch contact submissions' },
+            { status: 500 }
+        );
+    }
+}
+
 export async function POST(request: NextRequest) {
     console.debug('=== Contact Form API Called ===');
 
