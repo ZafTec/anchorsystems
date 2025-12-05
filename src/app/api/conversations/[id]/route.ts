@@ -4,10 +4,10 @@ import { query } from '@/lib/db';
 // GET /api/conversations/[id] - Get a specific conversation with all messages
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const conversationId = params.id;
+        const { id: conversationId } = await params;
 
         // Get conversation details
         const conversationResult = await query(
@@ -62,10 +62,10 @@ export async function GET(
 // DELETE /api/conversations/[id] - Delete a conversation
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
-        const conversationId = params.id;
+        const { id: conversationId } = await params;
 
         // Delete conversation (messages and token_usage will cascade)
         const result = await query(
