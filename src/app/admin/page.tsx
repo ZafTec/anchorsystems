@@ -656,13 +656,13 @@ export default function AdminPage() {
                                                     {day.request_count}
                                                 </td>
                                                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
-                                                    {parseInt(day.prompt_tokens).toLocaleString()}
+                                                    {day.prompt_tokens.toLocaleString()}
                                                 </td>
                                                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
-                                                    {parseInt(day.completion_tokens).toLocaleString()}
+                                                    {day.completion_tokens.toLocaleString()}
                                                 </td>
                                                 <td className="py-3 px-4 text-slate-900 dark:text-white font-medium">
-                                                    {parseInt(day.total_tokens).toLocaleString()}
+                                                    {day.total_tokens.toLocaleString()}
                                                 </td>
                                             </tr>
                                         ))}
