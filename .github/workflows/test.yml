@@ -71,6 +71,8 @@ jobs:
 
       - name: Run tests
         run: npm test -- --coverage
+        env:
+          DATABASE_URL: 'Host=localhost;Port=5432;Database=anchorsystems_test;Username=test;Password=test'
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
