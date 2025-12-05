@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { POST } from '../route';
+import { query } from '@/lib/db';
 
 // Mock fetch for Gemini API calls
 global.fetch = jest.fn();
@@ -11,13 +12,29 @@ const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
 describe('Chat API Route', () => {
     const originalEnv = process.env;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.clearAllMocks();
         process.env = { ...originalEnv };
+
+        // Clean up test data from database before each test
+        try {
+            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
+        } catch {
+            // Ignore errors if tables don't exist yet
+        }
     });
 
     afterEach(() => {
         process.env = originalEnv;
+    });
+
+    afterAll(async () => {
+        // Clean up all test data
+        try {
+            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
+        } catch {
+            // Ignore cleanup errors
+        }
     });
 
     const createMockRequest = (body: Record<string, unknown>) => {

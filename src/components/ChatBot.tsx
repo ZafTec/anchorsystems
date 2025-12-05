@@ -22,6 +22,19 @@ const ChatBot = () => {
     ]);
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [conversationId, setConversationId] = useState<string | null>(null);
+    const [sessionId] = useState(() => {
+        // Generate a unique session ID for this browser session
+        if (typeof window !== 'undefined') {
+            let id = sessionStorage.getItem('chatbot_session_id');
+            if (!id) {
+                id = `session-${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+                sessionStorage.setItem('chatbot_session_id', id);
+            }
+            return id;
+        }
+        return `session-${Date.now()}`;
+    });
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -65,6 +78,8 @@ const ChatBot = () => {
                         role: m.role,
                         content: m.content,
                     })),
+                    conversationId: conversationId,
+                    sessionId: sessionId,
                 }),
             });
 
@@ -73,6 +88,11 @@ const ChatBot = () => {
             }
 
             const data = await response.json();
+
+            // Update conversation ID if this is a new conversation
+            if (data.conversationId && !conversationId) {
+                setConversationId(data.conversationId);
+            }
 
             const assistantMessage: Message = {
                 id: `assistant-${Date.now()}`,

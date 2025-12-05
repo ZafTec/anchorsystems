@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { query } from '@/lib/db';
 
 const SYSTEM_PROMPT = `You are a friendly and helpful AI sales assistant for Anchor Systems, a company that specializes in building custom AI solutions for businesses. Your role is to help potential customers understand our services, answer their questions, and guide them toward contacting us.
 
@@ -90,7 +91,11 @@ interface ChatMessage {
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json();
-        const { messages } = body as { messages: ChatMessage[] };
+        const { messages, conversationId, sessionId } = body as {
+            messages: ChatMessage[];
+            conversationId?: string;
+            sessionId?: string;
+        };
 
         if (!messages || !Array.isArray(messages)) {
             return NextResponse.json(
@@ -99,12 +104,53 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        if (messages.length === 0) {
+            return NextResponse.json(
+                { error: 'Messages array cannot be empty' },
+                { status: 400 }
+            );
+        }
+
         const apiKey = process.env.GEMINI_API_KEY;
+        let currentConversationId = conversationId;
+
+        // Create or get conversation
+        if (!currentConversationId) {
+            const userMessage = messages[messages.length - 1];
+            const title = userMessage?.content.substring(0, 100) || 'New Conversation';
+
+            const result = await query(
+                `INSERT INTO conversations (session_id, title, metadata)
+                 VALUES ($1, $2, $3)
+                 RETURNING id`,
+                [sessionId || null, title, JSON.stringify({ user_agent: request.headers.get('user-agent') })]
+            );
+            currentConversationId = result.rows[0].id;
+        }
+
+        // Save user message to database
+        const userMessage = messages[messages.length - 1];
+        await query(
+            `INSERT INTO messages (conversation_id, role, content, metadata)
+             VALUES ($1, $2, $3, $4)
+             RETURNING id`,
+            [currentConversationId, userMessage.role, userMessage.content, JSON.stringify({})]
+        );
 
         if (!apiKey) {
             // Return a helpful fallback response when no API key is configured
+            const fallbackMessage = getFallbackResponse(messages[messages.length - 1]?.content || '');
+
+            // Save fallback assistant message
+            await query(
+                `INSERT INTO messages (conversation_id, role, content, metadata)
+                 VALUES ($1, $2, $3, $4)`,
+                [currentConversationId, 'assistant', fallbackMessage, JSON.stringify({ fallback: true })]
+            );
+
             return NextResponse.json({
-                message: getFallbackResponse(messages[messages.length - 1]?.content || ''),
+                message: fallbackMessage,
+                conversationId: currentConversationId,
             });
         }
 
@@ -114,7 +160,6 @@ export async function POST(request: NextRequest) {
             parts: [{ text: msg.content }],
         }));
 
-        console.log("API Key being used:", apiKey);
         const response = await fetch(
             `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${apiKey}`,
             {
@@ -148,7 +193,37 @@ export async function POST(request: NextRequest) {
             throw new Error('No response from Gemini');
         }
 
-        return NextResponse.json({ message: assistantMessage });
+        // Save assistant message to database
+        const assistantMessageResult = await query(
+            `INSERT INTO messages (conversation_id, role, content, metadata)
+             VALUES ($1, $2, $3, $4)
+             RETURNING id`,
+            [currentConversationId, 'assistant', assistantMessage, JSON.stringify({ model: 'gemini-2.5-flash-lite' })]
+        );
+        const assistantMessageId = assistantMessageResult.rows[0].id;
+
+        // Extract and save token usage
+        const usageMetadata = data.usageMetadata;
+        if (usageMetadata) {
+            await query(
+                `INSERT INTO token_usage (conversation_id, message_id, model, prompt_tokens, completion_tokens, total_tokens, metadata)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+                [
+                    currentConversationId,
+                    assistantMessageId,
+                    'gemini-2.5-flash-lite',
+                    usageMetadata.promptTokenCount || 0,
+                    usageMetadata.candidatesTokenCount || 0,
+                    usageMetadata.totalTokenCount || 0,
+                    JSON.stringify(usageMetadata)
+                ]
+            );
+        }
+
+        return NextResponse.json({
+            message: assistantMessage,
+            conversationId: currentConversationId,
+        });
     } catch (error) {
         console.error('Chat API error:', error);
         return NextResponse.json(

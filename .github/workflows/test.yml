@@ -49,17 +49,7 @@ jobs:
 
       - name: Create database schema
         run: |
-          PGPASSWORD=test psql -h localhost -U test -d anchorsystems_test -c "
-          CREATE TABLE IF NOT EXISTS contact_submissions (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            company VARCHAR(255),
-            phone VARCHAR(50),
-            message TEXT NOT NULL,
-            service_interest VARCHAR(100),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-          );"
+          PGPASSWORD=test psql -h localhost -U test -d anchorsystems_test -f database/schema.sql
 
       - name: Run linter
         run: npm run lint
@@ -67,6 +57,8 @@ jobs:
 
       - name: Run tests
         run: npm test -- --coverage
+        env:
+          DATABASE_URL: 'Host=localhost;Port=5432;Database=anchorsystems_test;Username=test;Password=test'
 
       - name: Upload coverage reports
         uses: codecov/codecov-action@v4
