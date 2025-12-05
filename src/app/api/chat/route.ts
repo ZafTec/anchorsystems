@@ -123,13 +123,12 @@ export async function POST(request: NextRequest) {
 
         // Save user message to database
         const userMessage = messages[messages.length - 1];
-        const userMessageResult = await query(
+        await query(
             `INSERT INTO messages (conversation_id, role, content, metadata)
              VALUES ($1, $2, $3, $4)
              RETURNING id`,
             [currentConversationId, userMessage.role, userMessage.content, JSON.stringify({})]
         );
-        const userMessageId = userMessageResult.rows[0].id;
 
         if (!apiKey) {
             // Return a helpful fallback response when no API key is configured

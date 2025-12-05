@@ -66,8 +66,35 @@ interface TokenAnalytics {
     }[];
 }
 
+interface ConversationDetails {
+    conversation: {
+        id: string;
+        session_id: string;
+        user_id: string | null;
+        title: string;
+        created_at: string;
+        updated_at: string;
+        metadata: Record<string, unknown>;
+    };
+    messages: {
+        id: string;
+        role: string;
+        content: string;
+        created_at: string;
+        metadata: Record<string, unknown>;
+    }[];
+    tokenStats: {
+        request_count: number;
+        total_prompt_tokens: number;
+        total_completion_tokens: number;
+        total_tokens: number;
+    };
+}
+
+type TabId = 'overview' | 'conversations' | 'contacts' | 'analytics';
+
 export default function AdminPage() {
-    const [activeTab, setActiveTab] = useState<'overview' | 'conversations' | 'contacts' | 'analytics'>('overview');
+    const [activeTab, setActiveTab] = useState<TabId>('overview');
     const [conversations, setConversations] = useState<Conversation[]>([]);
     const [recentMessages, setRecentMessages] = useState<Message[]>([]);
     const [contacts, setContacts] = useState<ContactSubmission[]>([]);
@@ -75,10 +102,11 @@ export default function AdminPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedConversation, setSelectedConversation] = useState<string | null>(null);
-    const [conversationDetails, setConversationDetails] = useState<any>(null);
+    const [conversationDetails, setConversationDetails] = useState<ConversationDetails | null>(null);
 
     useEffect(() => {
         loadData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const loadData = async () => {
@@ -196,15 +224,15 @@ export default function AdminPage() {
                 {/* Tabs */}
                 <div className="mb-6 border-b border-slate-200 dark:border-slate-800">
                     <nav className="flex gap-4">
-                        {[
-                            { id: 'overview', label: 'Overview' },
-                            { id: 'conversations', label: 'Conversations' },
-                            { id: 'contacts', label: 'Contact Submissions' },
-                            { id: 'analytics', label: 'Token Analytics' },
-                        ].map((tab) => (
+                        {([
+                            { id: 'overview' as const, label: 'Overview' },
+                            { id: 'conversations' as const, label: 'Conversations' },
+                            { id: 'contacts' as const, label: 'Contact Submissions' },
+                            { id: 'analytics' as const, label: 'Token Analytics' },
+                        ] as const).map((tab) => (
                             <button
                                 key={tab.id}
-                                onClick={() => setActiveTab(tab.id as any)}
+                                onClick={() => setActiveTab(tab.id)}
                                 className={`px-4 py-2 font-medium transition-colors border-b-2 ${
                                     activeTab === tab.id
                                         ? 'border-teal-500 text-teal-600 dark:text-teal-400'
@@ -379,7 +407,7 @@ export default function AdminPage() {
 
                                         {/* Messages */}
                                         <div className="space-y-3 max-h-[500px] overflow-y-auto">
-                                            {conversationDetails.messages.map((msg: any) => (
+                                            {conversationDetails.messages.map((msg) => (
                                                 <div
                                                     key={msg.id}
                                                     className={`p-3 rounded-lg ${

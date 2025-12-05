@@ -4,77 +4,37 @@
 import { POST } from '../route';
 import { query } from '@/lib/db';
 
-// Mock the database query function
-jest.mock('@/lib/db', () => ({
-    query: jest.fn(),
-}));
-
 // Mock fetch for Gemini API calls
 global.fetch = jest.fn();
 
 const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
-const mockQuery = query as jest.MockedFunction<typeof query>;
 
 describe('Chat API Route', () => {
     const originalEnv = process.env;
 
-    // Helper to mock database operations
-    const mockDatabaseOperations = (includeTokenUsage = true) => {
-        // Mock conversation creation
-        mockQuery.mockResolvedValueOnce({
-            rows: [{ id: 'test-conversation-id' }],
-            command: 'INSERT',
-            rowCount: 1,
-            oid: 0,
-            fields: [],
-        });
-
-        // Mock user message insertion
-        mockQuery.mockResolvedValueOnce({
-            rows: [{ id: 'test-user-message-id' }],
-            command: 'INSERT',
-            rowCount: 1,
-            oid: 0,
-            fields: [],
-        });
-
-        // Mock assistant message insertion
-        mockQuery.mockResolvedValueOnce({
-            rows: [{ id: 'test-assistant-message-id' }],
-            command: 'INSERT',
-            rowCount: 1,
-            oid: 0,
-            fields: [],
-        });
-
-        // Mock token usage insertion (only for Gemini responses)
-        if (includeTokenUsage) {
-            mockQuery.mockResolvedValueOnce({
-                rows: [],
-                command: 'INSERT',
-                rowCount: 1,
-                oid: 0,
-                fields: [],
-            });
-        }
-    };
-
-    beforeEach(() => {
+    beforeEach(async () => {
         jest.clearAllMocks();
         process.env = { ...originalEnv };
 
-        // Default database mocks for all database calls
-        mockQuery.mockImplementation(async () => ({
-            rows: [{ id: 'mock-id' }],
-            command: 'INSERT',
-            rowCount: 1,
-            oid: 0,
-            fields: [],
-        }));
+        // Clean up test data from database before each test
+        try {
+            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
+        } catch {
+            // Ignore errors if tables don't exist yet
+        }
     });
 
     afterEach(() => {
         process.env = originalEnv;
+    });
+
+    afterAll(async () => {
+        // Clean up all test data
+        try {
+            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
+        } catch {
+            // Ignore cleanup errors
+        }
     });
 
     const createMockRequest = (body: Record<string, unknown>) => {

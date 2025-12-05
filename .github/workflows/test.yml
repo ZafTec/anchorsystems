@@ -61,6 +61,10 @@ jobs:
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
           );"
 
+      - name: Create chatbot database schema
+        run: |
+          PGPASSWORD=test psql -h localhost -U test -d anchorsystems_test -f database/chatbot-schema.sql
+
       - name: Run linter
         run: npm run lint
         continue-on-error: true
