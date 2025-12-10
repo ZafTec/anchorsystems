@@ -55,3 +55,10 @@ export const query = async (text: string, params?: unknown[]) => {
         throw error;
     }
 };
+
+export const closePool = async () => {
+    if (pool) {
+        await pool.end();
+        pool = null;
+    }
+};
