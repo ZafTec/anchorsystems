@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres-test:
-    image: postgres:16
+    image: postgres:16-alpine
     container_name: anchorsystems-test-db
     environment:
       POSTGRES_USER: test
@@ -11,22 +11,28 @@ services:
     ports:
       - "5433:5432" # Using 5433 to avoid conflicts with local postgres
     volumes:
-      - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U test -d anchorsystems_test" ]
-      interval: 10s
+      interval: 5s
       timeout: 5s
-      retries: 5
+      retries: 10
 
   test-runner:
     image: oven/bun:1
+    container_name: anchorsystems-test-runner
     working_dir: /app
     volumes:
-      - .:/app
+      - .:/app:cached
+      - bun-cache:/root/.bun
     environment:
-      DATABASE_URL: 'postgres://test:test@postgres-test:5432/anchorsystems_test'
+      DATABASE_URL: 'Host=postgres-test;Port=5432;Database=anchorsystems_test;Username=test;Password=test'
       NODE_ENV: test
-    command: sh -c "bun install && bun run test"
+      BUN_RUNTIME: 0
+    command: sh -c "apt-get update -qq && apt-get install -y -qq nodejs > /dev/null 2>&1 && bun install --frozen-lockfile && node ./node_modules/.bin/jest"
     depends_on:
       postgres-test:
         condition: service_healthy
+
+volumes:
+  bun-cache:

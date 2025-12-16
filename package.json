@@ -9,9 +9,13 @@
     "lint": "bun --bun next lint",
     "test": "jest",
     "test:unit": "jest --testPathIgnorePatterns=\".*\\\\.integration\\\\.test\\\\.ts\"",
-    "test:docker": "docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from test-runner",
+    "test:docker": "docker-compose -f docker-compose.test.yml down -v && docker-compose -f docker-compose.test.yml up --build --abort-on-container-exit --exit-code-from test-runner",
+    "test:docker:clean": "docker-compose -f docker-compose.test.yml down -v",
     "test:watch": "jest --watch",
-    "test:integration": "jest --testMatch='**/*.integration.test.ts'"
+    "test:integration": "jest --testMatch='**/*.integration.test.ts'",
+    "docker:build": "docker build -t anchorsystems:latest .",
+    "docker:prod": "docker-compose -f docker-compose.prod.yml up --build",
+    "docker:prod:down": "docker-compose -f docker-compose.prod.yml down -v"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.17",
