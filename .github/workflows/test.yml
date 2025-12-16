@@ -24,9 +24,6 @@ jobs:
         ports:
           - 5432:5432
 
-    strategy:
-      matrix:
-        # bun-version: [latest]
 
     env:
       DATABASE_URL: 'Host=localhost;Port=5432;Database=anchorsystems_test;Username=test;Password=test'
