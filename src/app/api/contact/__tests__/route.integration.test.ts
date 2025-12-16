@@ -14,7 +14,7 @@ const runIntegrationTests = process.env.DATABASE_URL !== undefined;
 
 describe('Contact API Route - Integration Tests', () => {
   if (!runIntegrationTests) {
-    it.skip('Skipping integration tests - DATABASE_URL not set', () => {});
+    it.skip('Skipping integration tests - DATABASE_URL not set', () => { });
     return;
   }
 

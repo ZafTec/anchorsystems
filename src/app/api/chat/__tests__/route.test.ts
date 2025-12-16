@@ -4,38 +4,34 @@
 import { POST } from '../route';
 import { query } from '@/lib/db';
 
+// Mock the database query function
+jest.mock('@/lib/db', () => ({
+    query: jest.fn(),
+}));
+
+const mockQuery = query as jest.Mock;
+
 // Mock fetch for Gemini API calls
 global.fetch = jest.fn();
-
-const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>;
+const mockFetch = global.fetch as jest.Mock;
 
 describe('Chat API Route', () => {
     const originalEnv = process.env;
 
     beforeEach(async () => {
-        jest.clearAllMocks();
+        mockQuery.mockClear();
+        mockFetch.mockClear();
         process.env = { ...originalEnv };
 
-        // Clean up test data from database before each test
-        try {
-            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
-        } catch {
-            // Ignore errors if tables don't exist yet
-        }
+        // No need to clean up DB in unit test since it's mocked, 
+        // but keeping structure similar
     });
 
     afterEach(() => {
         process.env = originalEnv;
     });
 
-    afterAll(async () => {
-        // Clean up all test data
-        try {
-            await query('DELETE FROM conversations WHERE session_id LIKE $1', ['test-session-%']);
-        } catch {
-            // Ignore cleanup errors
-        }
-    });
+    // afterAll removed as it was for DB cleanup which is mocked here
 
     const createMockRequest = (body: Record<string, unknown>) => {
         const request = new Request('http://localhost:3000/api/chat', {

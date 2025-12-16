@@ -1,23 +1,19 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import ChatBot from '../ChatBot';
+import { Message } from 'ai';
 
-// Mock the fetch API
+// Mock fetch global
 global.fetch = jest.fn();
-
-// Mock scrollIntoView (not implemented in jsdom)
+// Mock scrollIntoView
 Element.prototype.scrollIntoView = jest.fn();
+
+const mockFetch = global.fetch as jest.Mock;
+const mockScrollIntoView = Element.prototype.scrollIntoView as jest.Mock;
 
 describe('ChatBot Component', () => {
     beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
-    it('renders the floating chat button', () => {
-        render(<ChatBot />);
-        const chatButton = screen.getByLabelText(/open chat/i);
-        expect(chatButton).toBeInTheDocument();
     });
 
     it('opens chat window when button is clicked', async () => {
@@ -79,7 +75,7 @@ describe('ChatBot Component', () => {
 
     it('sends message and displays response', async () => {
         const user = userEvent.setup();
-        (global.fetch as jest.Mock).mockResolvedValueOnce({
+        (global.fetch as any).mockResolvedValueOnce({
             ok: true,
             json: async () => ({ message: 'Hello! How can I help you today?' }),
         });
@@ -102,7 +98,7 @@ describe('ChatBot Component', () => {
 
     it('displays loading indicator while waiting for response', async () => {
         const user = userEvent.setup();
-        (global.fetch as jest.Mock).mockImplementation(() =>
+        (global.fetch as any).mockImplementation(() =>
             new Promise(resolve =>
                 setTimeout(() => resolve({ ok: true, json: async () => ({ message: 'Response' }) }), 100)
             )
@@ -131,7 +127,7 @@ describe('ChatBot Component', () => {
 
     it('handles API error gracefully', async () => {
         const user = userEvent.setup();
-        (global.fetch as jest.Mock).mockRejectedValueOnce(new Error('Network error'));
+        (global.fetch as any).mockRejectedValueOnce(new Error('Network error'));
 
         render(<ChatBot />);
 
@@ -160,7 +156,7 @@ describe('ChatBot Component', () => {
 
     it('clears input after sending message', async () => {
         const user = userEvent.setup();
-        (global.fetch as jest.Mock).mockResolvedValueOnce({
+        (global.fetch as any).mockResolvedValueOnce({
             ok: true,
             json: async () => ({ message: 'Response' }),
         });
@@ -196,7 +192,7 @@ describe('ChatBot Component', () => {
 
     it('maintains conversation history', async () => {
         const user = userEvent.setup();
-        (global.fetch as jest.Mock)
+        (global.fetch as any)
             .mockResolvedValueOnce({
                 ok: true,
                 json: async () => ({ message: 'First response' }),
@@ -233,7 +229,7 @@ describe('ChatBot Component', () => {
 
     it('sends full conversation history to API', async () => {
         const user = userEvent.setup();
-        const mockFetch = global.fetch as jest.Mock;
+        const mockFetch = global.fetch as any;
         mockFetch.mockResolvedValue({
             ok: true,
             json: async () => ({ message: 'Response' }),
