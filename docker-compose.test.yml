@@ -9,11 +9,24 @@ services:
       POSTGRES_PASSWORD: test
       POSTGRES_DB: anchorsystems_test
     ports:
-      - "5433:5432"  # Using 5433 to avoid conflicts with local postgres
+      - "5433:5432" # Using 5433 to avoid conflicts with local postgres
     volumes:
       - ./scripts/init-test-db.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U test -d anchorsystems_test"]
+      test: [ "CMD-SHELL", "pg_isready -U test -d anchorsystems_test" ]
       interval: 10s
       timeout: 5s
       retries: 5
+
+  test-runner:
+    image: oven/bun:1
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      DATABASE_URL: 'postgres://test:test@postgres-test:5432/anchorsystems_test'
+      NODE_ENV: test
+    command: sh -c "bun install && bun test"
+    depends_on:
+      postgres-test:
+        condition: service_healthy
