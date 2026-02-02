@@ -1,5 +1,4 @@
 'use client';
-
 import { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 
@@ -24,7 +23,6 @@ const ChatBot = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [conversationId, setConversationId] = useState<string | null>(null);
     const [sessionId] = useState(() => {
-        // Generate a unique session ID for this browser session
         if (typeof window !== 'undefined') {
             let id = sessionStorage.getItem('chatbot_session_id');
             if (!id) {
@@ -89,7 +87,6 @@ const ChatBot = () => {
 
             const data = await response.json();
 
-            // Update conversation ID if this is a new conversation
             if (data.conversationId && !conversationId) {
                 setConversationId(data.conversationId);
             }
@@ -107,7 +104,7 @@ const ChatBot = () => {
             const errorMessage: Message = {
                 id: `error-${Date.now()}`,
                 role: 'assistant',
-                content: "I'm sorry, I'm having trouble connecting right now. Please try again or reach out to us through the contact form below.",
+                content: "I'm sorry, I'm having trouble connecting right now. Please try again or reach out to us through the contact form.",
                 timestamp: new Date(),
             };
             setMessages((prev) => [...prev, errorMessage]);
@@ -117,10 +114,10 @@ const ChatBot = () => {
     };
 
     const quickActions = [
-        { label: 'Learn about LLM Chatbots', message: 'Tell me about your LLM Chatbot solutions' },
-        { label: 'Learn about RAG Systems', message: 'What are RAG Systems and how can they help my business?' },
-        { label: 'Pricing info', message: 'What are your pricing options?' },
-        { label: 'Get a quote', message: 'I would like to get a quote for my project' },
+        { label: 'LLM Chatbots', message: 'Tell me about your LLM Chatbot solutions' },
+        { label: 'RAG Systems', message: 'What are RAG Systems?' },
+        { label: 'Pricing', message: 'What are your pricing options?' },
+        { label: 'Get Quote', message: 'I would like to get a quote' },
     ];
 
     const handleQuickAction = (message: string) => {
@@ -133,91 +130,68 @@ const ChatBot = () => {
             {/* Floating Chat Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110"
+                className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 ${
+                    isOpen 
+                        ? 'bg-twilight-700 dark:bg-twilight-800 rotate-90' 
+                        : 'bg-orange-500 hover:bg-orange-600'
+                }`}
                 aria-label={isOpen ? 'Close chat' : 'Open chat'}
             >
                 {isOpen ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 ) : (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6 text-white"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                        />
+                    <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                 )}
             </button>
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-50 w-[360px] sm:w-[400px] h-[500px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+                <div className="fixed bottom-24 right-6 z-50 w-[380px] sm:w-[420px] h-[550px] bg-white dark:bg-twilight-900/95 border border-stone-200 dark:border-stone-700 rounded-3xl shadow-2xl shadow-stone-400/20 dark:shadow-black/50 flex flex-col overflow-hidden animate-fade-in-up">
                     {/* Header */}
-                    <div className="bg-linear-to-r from-teal-600 to-teal-500 px-4 py-3 flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                />
+                    <div className="relative px-6 py-4 bg-gradient-to-r from-twilight-500 to-twilight-600 flex items-center gap-3 overflow-hidden">
+                        {/* Animated background */}
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer" />
+                        
+                        <div className="relative w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
+                            <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-white font-semibold text-sm">Anchor Systems AI</h3>
-                            <p className="text-white/80 text-xs">Ask me about our AI solutions</p>
+                        <div className="relative flex-1">
+                            <h3 className="text-white font-semibold">Anchor Systems AI</h3>
+                            <p className="text-white/80 text-sm flex items-center gap-1.5">
+                                <span className="w-2 h-2 bg-apricot-400 rounded-full animate-pulse" />
+                                Online
+                            </p>
                         </div>
                         <button
                             onClick={() => setIsOpen(false)}
-                            className="text-white/80 hover:text-white transition-colors"
+                            className="relative text-white/80 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
                             aria-label="Close chat"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
+                            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                        {messages.map((message) => (
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50 dark:bg-twilight-950">
+                        {messages.map((message, index) => (
                             <div
                                 key={message.id}
-                                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in-up`}
+                                style={{ animationDelay: `${index * 50}ms` }}
                             >
                                 <div
-                                    className={`max-w-[80%] px-4 py-2 rounded-2xl text-sm ${
+                                    className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
                                         message.role === 'user'
-                                            ? 'bg-teal-500 text-white rounded-br-md'
-                                            : 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 rounded-bl-md prose prose-sm max-w-none dark:prose-invert'
+                                            ? 'bg-orange-500 text-white rounded-br-md shadow-lg shadow-orange-500/20'
+                                            : 'bg-white dark:bg-twilight-900/80 text-stone-900 dark:text-stone-200 rounded-bl-md shadow-sm border border-stone-200 dark:border-stone-700 prose prose-sm max-w-none dark:prose-invert'
                                     }`}
                                 >
                                     {message.role === 'assistant' ? (
@@ -229,12 +203,12 @@ const ChatBot = () => {
                             </div>
                         ))}
                         {isLoading && (
-                            <div className="flex justify-start">
-                                <div className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 px-4 py-2 rounded-2xl rounded-bl-md">
-                                    <div className="flex gap-1">
-                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
-                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
-                                        <span className="w-2 h-2 bg-slate-400 dark:bg-slate-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                            <div className="flex justify-start animate-fade-in-up">
+                                <div className="bg-white dark:bg-twilight-900/80 text-stone-900 dark:text-stone-200 px-4 py-3 rounded-2xl rounded-bl-md shadow-sm border border-stone-200 dark:border-stone-700">
+                                    <div className="flex gap-1.5">
+                                        <span className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                        <span className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                        <span className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                                     </div>
                                 </div>
                             </div>
@@ -244,13 +218,14 @@ const ChatBot = () => {
 
                     {/* Quick Actions */}
                     {messages.length === 1 && (
-                        <div className="px-4 pb-2">
+                        <div className="px-4 py-3 bg-white dark:bg-twilight-900/80 border-t border-stone-200 dark:border-stone-700">
+                            <p className="text-xs text-stone-500 dark:text-stone-400 mb-2">Quick actions:</p>
                             <div className="flex flex-wrap gap-2">
                                 {quickActions.map((action, index) => (
                                     <button
                                         key={index}
                                         onClick={() => handleQuickAction(action.message)}
-                                        className="text-xs bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-teal-600 dark:text-teal-400 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-700 hover:border-teal-500/50 dark:hover:border-teal-500/50 transition-all"
+                                        className="text-xs bg-stone-100 hover:bg-apricot-50 dark:bg-twilight-800 dark:hover:bg-apricot-900/30 text-stone-700 dark:text-stone-300 hover:text-orange-600 dark:hover:text-orange-400 px-3 py-1.5 rounded-full border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-500/50 transition-all duration-200"
                                     >
                                         {action.label}
                                     </button>
@@ -260,36 +235,25 @@ const ChatBot = () => {
                     )}
 
                     {/* Input */}
-                    <form onSubmit={handleSubmit} className="p-4 border-t border-slate-200 dark:border-slate-700">
-                        <div className="flex gap-2">
+                    <form onSubmit={handleSubmit} className="p-4 bg-white dark:bg-twilight-900/80 border-t border-stone-200 dark:border-stone-700">
+                        <div className="flex gap-3">
                             <input
                                 ref={inputRef}
                                 type="text"
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 placeholder="Type your message..."
-                                className="flex-1 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-4 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                                className="flex-1 bg-stone-100 dark:bg-twilight-950 border-2 border-transparent focus:border-orange-500 rounded-xl px-4 py-3 text-sm text-stone-900 dark:text-stone-50 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none transition-all duration-200"
                                 disabled={isLoading}
                             />
                             <button
                                 type="submit"
                                 disabled={!inputValue.trim() || isLoading}
-                                className="w-10 h-10 bg-teal-500 hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 disabled:bg-slate-300 dark:disabled:bg-slate-700 disabled:cursor-not-allowed rounded-full flex items-center justify-center transition-colors"
+                                className="w-11 h-11 bg-orange-500 hover:bg-orange-600 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl flex items-center justify-center transition-all duration-200 hover:shadow-lg hover:shadow-orange-500/25 hover:scale-105"
                                 aria-label="Send message"
                             >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-5 w-5 text-white"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                                    />
+                                <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                                 </svg>
                             </button>
                         </div>

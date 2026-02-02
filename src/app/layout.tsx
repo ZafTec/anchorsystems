@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: "Custom LLM Chatbots and Enterprise RAG Systems tailored for your business.",
   },
   icons: {
-    icon: "/icon.svg",
+    icon: "/logo.png",
   },
 };
 

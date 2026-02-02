@@ -1,4 +1,6 @@
+'use client';
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 interface PricingTier {
     name: string;
@@ -14,55 +16,158 @@ interface PricingTableProps {
 }
 
 const PricingTable = ({ tiers }: PricingTableProps) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.unobserve(entry.target);
+                }
+            },
+            { threshold: 0.2 }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="py-24 bg-slate-100 dark:bg-slate-950">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white sm:text-4xl">
-                        Simple, Transparent Pricing
+        <div ref={sectionRef} className="relative py-24 lg:py-32 bg-stone-50 dark:bg-twilight-950 overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-twilight-400/5 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-400/5 rounded-full blur-3xl" />
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Section Header */}
+                <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-twilight-50 dark:bg-twilight-900/50 border border-twilight-200 dark:border-twilight-700 mb-6">
+                        <svg className="w-4 h-4 text-twilight-600 dark:text-twilight-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm font-semibold text-twilight-600 dark:text-twilight-400">Pricing</span>
+                    </div>
+                    <h2 className="text-4xl sm:text-5xl font-bold text-stone-900 dark:text-stone-50 mb-4">
+                        Simple, Transparent{' '}
+                        <span className="text-orange-500 dark:text-apricot-400">Pricing</span>
                     </h2>
-                    <p className="mt-4 text-xl text-slate-600 dark:text-gray-400">
-                        Choose the plan that fits your business needs.
+                    <p className="text-xl text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
+                        Choose the plan that fits your business needs. All plans include dedicated support.
                     </p>
                 </div>
-                <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3">
-                    {tiers.map((tier) => (
-                        <div key={tier.name} className={`rounded-lg shadow-lg divide-y divide-slate-200 dark:divide-slate-800 ${tier.highlighted ? 'border-2 border-teal-500 relative' : 'border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900'}`}>
+
+                {/* Pricing Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {tiers.map((tier, index) => (
+                        <div
+                            key={tier.name}
+                            className={`relative group transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                            style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+                        >
+                            {/* Popular Badge */}
                             {tier.highlighted && (
-                                <div className="absolute top-0 right-0 -mr-1 -mt-1 w-32 h-32 overflow-hidden">
-                                    <div className="absolute top-0 right-0 -mr-1 -mt-1 w-32 h-32 overflow-hidden">
-                                        <span className="absolute top-0 right-0 bg-teal-500 text-slate-900 text-xs font-bold px-2 py-1 rounded-bl-lg">Popular</span>
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                                    <div className="px-4 py-1.5 bg-orange-500 text-white text-sm font-bold rounded-full shadow-lg shadow-orange-500/30">
+                                        Most Popular
                                     </div>
                                 </div>
                             )}
-                            <div className="p-6">
-                                <h2 className="text-2xl leading-6 font-semibold text-slate-900 dark:text-white">{tier.name}</h2>
-                                <p className="mt-4 text-sm text-slate-600 dark:text-gray-400">{tier.description}</p>
-                                <p className="mt-8">
-                                    <span className="text-4xl font-extrabold text-slate-900 dark:text-white">{tier.price}</span>
-                                </p>
-                                <Link
-                                    href="#contact"
-                                    className={`mt-8 block w-full py-3 px-6 border border-transparent rounded-md text-center font-medium ${tier.highlighted ? 'bg-teal-500 text-slate-900 hover:bg-teal-600' : 'bg-slate-200 dark:bg-slate-800 text-teal-600 dark:text-teal-400 hover:bg-slate-300 dark:hover:bg-slate-700'} transition-colors`}
-                                >
-                                    {tier.cta}
-                                </Link>
-                            </div>
-                            <div className="pt-6 pb-8 px-6">
-                                <h3 className="text-xs font-medium text-slate-900 dark:text-white tracking-wide uppercase">What&apos;s included</h3>
-                                <ul className="mt-6 space-y-4">
-                                    {tier.features.map((feature) => (
-                                        <li key={feature} className="flex space-x-3">
-                                            <svg className="flex-shrink-0 h-5 w-5 text-teal-600 dark:text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+
+                            <div className={`relative h-full p-8 rounded-3xl transition-all duration-500 hover:shadow-2xl ${
+                                tier.highlighted
+                                    ? 'bg-white dark:bg-twilight-900/50 border-2 border-orange-500 shadow-xl shadow-orange-500/10 scale-105'
+                                    : 'bg-white dark:bg-twilight-900/50 border border-stone-200 dark:border-stone-800 hover:border-orange-500/30 hover:shadow-xl hover:-translate-y-2'
+                            }`}>
+                                {/* Background Glow */}
+                                {tier.highlighted && (
+                                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-orange-500/5 to-transparent pointer-events-none" />
+                                )}
+
+                                <div className="relative">
+                                    {/* Plan Name */}
+                                    <h3 className="text-xl font-bold text-stone-900 dark:text-stone-50 mb-2">
+                                        {tier.name}
+                                    </h3>
+                                    <p className="text-stone-600 dark:text-stone-400 text-sm mb-6">
+                                        {tier.description}
+                                    </p>
+
+                                    {/* Price */}
+                                    <div className="mb-8">
+                                        <span className="text-4xl lg:text-5xl font-bold text-stone-900 dark:text-stone-50">
+                                            {tier.price}
+                                        </span>
+                                    </div>
+
+                                    {/* CTA Button */}
+                                    <Link
+                                        href="#contact"
+                                        className={`group/btn relative block w-full py-3.5 px-6 rounded-xl font-semibold text-center transition-all duration-300 overflow-hidden mb-8 ${
+                                            tier.highlighted
+                                                ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/25 hover:shadow-xl hover:shadow-orange-500/30'
+                                                : 'bg-stone-100 dark:bg-twilight-900 text-stone-900 dark:text-stone-50 hover:bg-apricot-100 dark:hover:bg-apricot-900/30 hover:text-orange-700 dark:hover:text-orange-300'
+                                        }`}
+                                    >
+                                        <span className="relative z-10 flex items-center justify-center gap-2">
+                                            {tier.cta}
+                                            <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                             </svg>
-                                            <span className="text-sm text-slate-600 dark:text-gray-400">{feature}</span>
-                                        </li>
-                                    ))}
-                                </ul>
+                                        </span>
+                                        {tier.highlighted && (
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
+                                        )}
+                                    </Link>
+
+                                    {/* Features */}
+                                    <div className="space-y-4">
+                                        <p className="text-sm font-semibold text-stone-900 dark:text-stone-50 uppercase tracking-wider">
+                                            What's included
+                                        </p>
+                                        <ul className="space-y-3">
+                                            {tier.features.map((feature, featureIndex) => (
+                                                <li key={featureIndex} className="flex items-start gap-3">
+                                                    <div className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${
+                                                        tier.highlighted
+                                                            ? 'bg-orange-100 dark:bg-orange-500/20'
+                                                            : 'bg-stone-100 dark:bg-twilight-950'
+                                                    }`}>
+                                                        <svg className={`w-3.5 h-3.5 ${tier.highlighted ? 'text-orange-600 dark:text-orange-400' : 'text-stone-600 dark:text-stone-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </div>
+                                                    <span className="text-sm text-stone-600 dark:text-stone-400">{feature}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ))}
+                </div>
+
+                {/* Bottom Note */}
+                <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                    <p className="text-stone-600 dark:text-stone-400 mb-4">
+                        Need a custom solution? Contact us for enterprise pricing.
+                    </p>
+                    <Link
+                        href="#contact"
+                        className="inline-flex items-center gap-2 text-orange-600 dark:text-apricot-400 font-semibold hover:gap-3 transition-all duration-300"
+                    >
+                        Contact Sales
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </Link>
                 </div>
             </div>
         </div>
