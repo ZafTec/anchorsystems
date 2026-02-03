@@ -5,6 +5,15 @@ import ContactForm from '../ContactForm';
 // Mock the fetch API
 global.fetch = jest.fn();
 
+// Mock IntersectionObserver
+const mockIntersectionObserver = jest.fn();
+mockIntersectionObserver.mockReturnValue({
+  observe: () => null,
+  unobserve: () => null,
+  disconnect: () => null
+});
+window.IntersectionObserver = mockIntersectionObserver;
+
 describe('ContactForm Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
