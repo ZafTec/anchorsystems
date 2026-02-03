@@ -132,7 +132,7 @@ const ChatBot = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-2xl shadow-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 ${
                     isOpen 
-                        ? 'bg-twilight-700 dark:bg-twilight-800 rotate-90' 
+                        ? 'bg-slate-700 dark:bg-slate-800 rotate-90' 
                         : 'bg-orange-500 hover:bg-orange-600'
                 }`}
                 aria-label={isOpen ? 'Close chat' : 'Open chat'}
@@ -150,9 +150,9 @@ const ChatBot = () => {
 
             {/* Chat Window */}
             {isOpen && (
-                <div className="fixed bottom-24 right-6 z-50 w-[380px] sm:w-[420px] h-[550px] bg-white dark:bg-twilight-900/95 border border-stone-200 dark:border-stone-700 rounded-3xl shadow-2xl shadow-stone-400/20 dark:shadow-black/50 flex flex-col overflow-hidden animate-fade-in-up">
+                <div className="fixed bottom-24 right-6 z-50 w-[380px] sm:w-[420px] h-[550px] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-3xl shadow-2xl shadow-slate-400/20 dark:shadow-black/50 flex flex-col overflow-hidden animate-fade-in-up">
                     {/* Header */}
-                    <div className="relative px-6 py-4 bg-gradient-to-r from-twilight-500 to-twilight-600 flex items-center gap-3 overflow-hidden">
+                    <div className="relative px-6 py-4 bg-gradient-to-r from-slate-600 to-slate-700 flex items-center gap-3 overflow-hidden">
                         {/* Animated background */}
                         <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.1)_50%,transparent_75%)] bg-[length:250%_250%] animate-shimmer" />
                         
@@ -164,7 +164,7 @@ const ChatBot = () => {
                         <div className="relative flex-1">
                             <h3 className="text-white font-semibold">Anchor Systems AI</h3>
                             <p className="text-white/80 text-sm flex items-center gap-1.5">
-                                <span className="w-2 h-2 bg-apricot-400 rounded-full animate-pulse" />
+                                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
                                 Online
                             </p>
                         </div>
@@ -180,7 +180,7 @@ const ChatBot = () => {
                     </div>
 
                     {/* Messages */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50 dark:bg-twilight-950">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-slate-950">
                         {messages.map((message, index) => (
                             <div
                                 key={message.id}
@@ -191,7 +191,7 @@ const ChatBot = () => {
                                     className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm ${
                                         message.role === 'user'
                                             ? 'bg-orange-500 text-white rounded-br-md shadow-lg shadow-orange-500/20'
-                                            : 'bg-white dark:bg-twilight-900/80 text-stone-900 dark:text-stone-200 rounded-bl-md shadow-sm border border-stone-200 dark:border-stone-700 prose prose-sm max-w-none dark:prose-invert'
+                                            : 'bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-bl-md shadow-sm border border-slate-200 dark:border-slate-700 prose prose-sm max-w-none dark:prose-invert'
                                     }`}
                                 >
                                     {message.role === 'assistant' ? (
@@ -204,7 +204,7 @@ const ChatBot = () => {
                         ))}
                         {isLoading && (
                             <div className="flex justify-start animate-fade-in-up">
-                                <div className="bg-white dark:bg-twilight-900/80 text-stone-900 dark:text-stone-200 px-4 py-3 rounded-2xl rounded-bl-md shadow-sm border border-stone-200 dark:border-stone-700">
+                                <div className="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 px-4 py-3 rounded-2xl rounded-bl-md shadow-sm border border-slate-200 dark:border-slate-700">
                                     <div className="flex gap-1.5">
                                         <span className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                                         <span className="w-2 h-2 bg-orange-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -218,14 +218,14 @@ const ChatBot = () => {
 
                     {/* Quick Actions */}
                     {messages.length === 1 && (
-                        <div className="px-4 py-3 bg-white dark:bg-twilight-900/80 border-t border-stone-200 dark:border-stone-700">
-                            <p className="text-xs text-stone-500 dark:text-stone-400 mb-2">Quick actions:</p>
+                        <div className="px-4 py-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">Quick actions:</p>
                             <div className="flex flex-wrap gap-2">
                                 {quickActions.map((action, index) => (
                                     <button
                                         key={index}
                                         onClick={() => handleQuickAction(action.message)}
-                                        className="text-xs bg-stone-100 hover:bg-apricot-50 dark:bg-twilight-800 dark:hover:bg-apricot-900/30 text-stone-700 dark:text-stone-300 hover:text-orange-600 dark:hover:text-orange-400 px-3 py-1.5 rounded-full border border-stone-200 dark:border-stone-700 hover:border-orange-300 dark:hover:border-orange-500/50 transition-all duration-200"
+                                        className="text-xs bg-slate-100 hover:bg-orange-50 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 px-3 py-1.5 rounded-full border border-slate-200 dark:border-slate-600 hover:border-orange-300 dark:hover:border-orange-500/50 transition-all duration-200"
                                     >
                                         {action.label}
                                     </button>
@@ -235,7 +235,7 @@ const ChatBot = () => {
                     )}
 
                     {/* Input */}
-                    <form onSubmit={handleSubmit} className="p-4 bg-white dark:bg-twilight-900/80 border-t border-stone-200 dark:border-stone-700">
+                    <form onSubmit={handleSubmit} className="p-4 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
                         <div className="flex gap-3">
                             <input
                                 ref={inputRef}
@@ -243,7 +243,7 @@ const ChatBot = () => {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 placeholder="Type your message..."
-                                className="flex-1 bg-stone-100 dark:bg-twilight-950 border-2 border-transparent focus:border-orange-500 rounded-xl px-4 py-3 text-sm text-stone-900 dark:text-stone-50 placeholder-stone-400 dark:placeholder-stone-500 focus:outline-none transition-all duration-200"
+                                className="flex-1 bg-slate-100 dark:bg-slate-950 border-2 border-transparent focus:border-orange-500 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all duration-200"
                                 disabled={isLoading}
                             />
                             <button

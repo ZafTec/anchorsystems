@@ -25,8 +25,8 @@ const Navbar = () => {
         <nav 
             className={`fixed w-full z-50 transition-all duration-500 ${
                 isScrolled 
-                    ? 'glass dark:glass-dark shadow-lg border-b border-twilight-200 dark:border-twilight-800' 
-                    : 'bg-transparent'
+                    ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl shadow-lg border-b border-slate-200 dark:border-slate-800' 
+                    : 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md'
             }`}
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,7 +39,7 @@ const Navbar = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
-                            <span className="text-xl font-bold text-twilight-900 dark:text-stone-50">
+                            <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
                                 Anchor Systems
                             </span>
                         </Link>
@@ -51,7 +51,7 @@ const Navbar = () => {
                             <Link
                                 key={link.href}
                                 href={link.href}
-                                className="relative px-4 py-2 text-sm font-medium text-twilight-600 dark:text-stone-300 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-500/10 group"
+                                className="relative px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-500/10 group"
                             >
                                 {link.label}
                                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 gradient-accent group-hover:w-1/2 transition-all duration-300" />
@@ -74,7 +74,7 @@ const Navbar = () => {
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             type="button"
-                            className="relative p-2 rounded-xl text-twilight-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-twilight-800 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500/50"
+                            className="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none focus:ring-2 focus:ring-orange-500/50"
                             aria-controls="mobile-menu"
                             aria-expanded={isOpen}
                         >
@@ -91,19 +91,19 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             <div className={`md:hidden absolute top-full left-0 right-0 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}`}>
-                <div className="mx-4 mt-2 glass dark:glass-dark rounded-2xl border border-twilight-200 dark:border-twilight-800 shadow-2xl overflow-hidden">
+                <div className="mx-4 mt-2 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl overflow-hidden">
                     <div className="px-4 py-4 space-y-1">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className="flex items-center px-4 py-3 text-base font-medium text-twilight-700 dark:text-stone-200 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-500/10 rounded-xl transition-all duration-200"
+                                className="flex items-center px-4 py-3 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-500/10 rounded-xl transition-all duration-200"
                             >
                                 {link.label}
                             </Link>
                         ))}
-                        <div className="pt-4 mt-4 border-t border-twilight-200 dark:border-twilight-800">
+                        <div className="pt-4 mt-4 border-t border-slate-200 dark:border-slate-800">
                             <Link 
                                 href="#contact" 
                                 onClick={() => setIsOpen(false)}

@@ -53,23 +53,23 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="relative bg-stone-50 dark:bg-twilight-950 border-t border-stone-200 dark:border-stone-800">
+        <footer className="relative bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
                     {/* Brand Column */}
                     <div className="lg:col-span-5">
                         <Link href="/" className="inline-flex items-center gap-2 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-twilight-400 to-twilight-600 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
                                 <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                                 </svg>
                             </div>
-                            <span className="text-2xl font-bold text-stone-900 dark:text-stone-50">
+                            <span className="text-2xl font-bold text-slate-900 dark:text-slate-50">
                                 Anchor Systems
                             </span>
                         </Link>
-                        <p className="text-stone-600 dark:text-stone-400 mb-6 max-w-sm leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-400 mb-6 max-w-sm leading-relaxed">
                             Building the next generation of AI-powered solutions. We specialize in custom LLM chatbots and enterprise-grade RAG systems that transform businesses.
                         </p>
                         
@@ -81,7 +81,7 @@ const Footer = () => {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-xl bg-stone-200 dark:bg-twilight-900 text-stone-600 dark:text-stone-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition-all duration-300 flex items-center justify-center"
+                                    className="w-10 h-10 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-orange-500 hover:text-white dark:hover:bg-orange-500 dark:hover:text-white transition-all duration-300 flex items-center justify-center"
                                     aria-label={social.name}
                                 >
                                     {social.icon}
@@ -95,7 +95,7 @@ const Footer = () => {
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
                             {/* Services */}
                             <div>
-                                <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-50 uppercase tracking-wider mb-4">
+                                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 uppercase tracking-wider mb-4">
                                     Services
                                 </h3>
                                 <ul className="space-y-3">
@@ -103,7 +103,7 @@ const Footer = () => {
                                         <li key={link.label}>
                                             <Link 
                                                 href={link.href}
-                                                className="text-stone-600 dark:text-stone-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
+                                                className="text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
                                             >
                                                 {link.label}
                                             </Link>
@@ -114,7 +114,7 @@ const Footer = () => {
 
                             {/* Company */}
                             <div>
-                                <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-50 uppercase tracking-wider mb-4">
+                                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 uppercase tracking-wider mb-4">
                                     Company
                                 </h3>
                                 <ul className="space-y-3">
@@ -122,7 +122,7 @@ const Footer = () => {
                                         <li key={link.label}>
                                             <Link 
                                                 href={link.href}
-                                                className="text-stone-600 dark:text-stone-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
+                                                className="text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
                                             >
                                                 {link.label}
                                             </Link>
@@ -133,7 +133,7 @@ const Footer = () => {
 
                             {/* Resources */}
                             <div>
-                                <h3 className="text-sm font-semibold text-stone-900 dark:text-stone-50 uppercase tracking-wider mb-4">
+                                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-50 uppercase tracking-wider mb-4">
                                     Resources
                                 </h3>
                                 <ul className="space-y-3">
@@ -141,7 +141,7 @@ const Footer = () => {
                                         <li key={link.label}>
                                             <Link 
                                                 href={link.href}
-                                                className="text-stone-600 dark:text-stone-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
+                                                className="text-slate-600 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors duration-200"
                                             >
                                                 {link.label}
                                             </Link>
@@ -155,22 +155,22 @@ const Footer = () => {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-stone-200 dark:border-stone-800">
+            <div className="border-t border-slate-200 dark:border-slate-800">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                        <p className="text-sm text-stone-500 dark:text-stone-500">
+                        <p className="text-sm text-slate-500 dark:text-slate-500">
                             © {currentYear} Anchor Systems. All rights reserved.
                         </p>
                         <div className="flex items-center gap-6">
                             <Link 
                                 href="/privacy" 
-                                className="text-sm text-stone-500 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
+                                className="text-sm text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                             >
                                 Privacy Policy
                             </Link>
                             <Link 
                                 href="#" 
-                                className="text-sm text-stone-500 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-300 transition-colors"
+                                className="text-sm text-slate-500 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors"
                             >
                                 Terms of Service
                             </Link>

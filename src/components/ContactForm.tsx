@@ -96,13 +96,13 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
     };
 
     const inputClasses = (fieldName: string) => `
-        w-full px-4 py-4 bg-white dark:bg-twilight-900/50 
-        border-2 rounded-xl text-stone-900 dark:text-stone-50
-        placeholder:text-stone-400 dark:placeholder:text-stone-600
+        w-full px-4 py-4 bg-white dark:bg-slate-900/50 
+        border-2 rounded-xl text-slate-900 dark:text-slate-100
+        placeholder:text-slate-400 dark:placeholder:text-slate-600
         transition-all duration-300 ease-out
         ${focusedField === fieldName 
             ? 'border-orange-500 shadow-lg shadow-orange-500/20' 
-            : 'border-stone-200 dark:border-stone-700 hover:border-stone-300 dark:hover:border-stone-600'
+            : 'border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600'
         }
         focus:outline-none focus:ring-0
     `;
@@ -110,40 +110,40 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
     const labelClasses = (fieldName: string) => `
         absolute left-4 transition-all duration-300 pointer-events-none
         ${focusedField === fieldName || formData[fieldName as keyof typeof formData]
-            ? '-top-2.5 text-xs font-semibold text-orange-600 dark:text-orange-400 bg-white dark:bg-twilight-950 px-2'
-            : 'top-4 text-stone-500 dark:text-stone-400'
+            ? '-top-2.5 text-xs font-semibold text-orange-600 dark:text-orange-400 bg-white dark:bg-slate-950 px-2'
+            : 'top-4 text-slate-500 dark:text-slate-400'
         }
     `;
 
     return (
-        <div ref={sectionRef} className="relative py-24 lg:py-32 bg-stone-50 dark:bg-twilight-950 overflow-hidden" id="contact">
+        <div ref={sectionRef} className="relative py-24 lg:py-32 bg-slate-50 dark:bg-slate-950 overflow-hidden" id="contact">
             {/* Background Elements */}
             <div className="absolute inset-0">
-                <div className="absolute top-0 left-1/4 w-96 h-96 bg-twilight-400/5 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-400/5 rounded-full blur-3xl" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]" />
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/5 dark:bg-indigo-500/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 dark:bg-orange-500/10 rounded-full blur-3xl" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]" />
             </div>
 
             <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-twilight-50 dark:bg-twilight-900/50 border border-twilight-200 dark:border-twilight-700 mb-6">
-                        <svg className="w-4 h-4 text-twilight-600 dark:text-twilight-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 mb-6">
+                        <svg className="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
-                        <span className="text-sm font-semibold text-twilight-600 dark:text-twilight-400">Get In Touch</span>
+                        <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">Get In Touch</span>
                     </div>
-                    <h2 className="text-4xl sm:text-5xl font-bold text-stone-900 dark:text-stone-50 mb-4">
+                    <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-4">
                         Let's Start Your{' '}
-                        <span className="text-orange-500 dark:text-apricot-400">AI Journey</span>
+                        <span className="text-orange-500 dark:text-orange-400">AI Journey</span>
                     </h2>
-                    <p className="text-xl text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
                         Fill out the form below and we'll get back to you within 24 hours with a custom proposal.
                     </p>
                 </div>
 
                 {/* Form Card */}
-                <div className={`relative bg-white dark:bg-twilight-900/50 rounded-3xl shadow-2xl shadow-stone-200/50 dark:shadow-black/50 border border-stone-200 dark:border-stone-800 overflow-hidden transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                <div className={`relative bg-white dark:bg-slate-900/50 rounded-3xl shadow-2xl shadow-slate-200/50 dark:shadow-black/50 border border-slate-200 dark:border-slate-800 overflow-hidden transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                     {/* Success State */}
                     {submitStatus === 'success' ? (
                         <div className="p-12 text-center">
@@ -152,13 +152,13 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                 </svg>
                             </div>
-                            <h3 className="text-2xl font-bold text-stone-900 dark:text-stone-50 mb-3">Message Sent!</h3>
-                            <p className="text-stone-600 dark:text-stone-400 mb-8 max-w-md mx-auto">
+                            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mb-3">Message Sent!</h3>
+                            <p className="text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
                                 Thank you for reaching out. We've received your message and will get back to you within 24 hours.
                             </p>
                             <button
                                 onClick={() => setSubmitStatus('idle')}
-                                className="px-6 py-3 bg-stone-100 dark:bg-twilight-900 text-stone-900 dark:text-stone-50 font-semibold rounded-xl hover:bg-apricot-100 dark:hover:bg-apricot-900/30 transition-all duration-300"
+                                className="px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-semibold rounded-xl hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-all duration-300"
                             >
                                 Send Another Message
                             </button>
@@ -249,7 +249,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
 
                                 {/* Service Interest */}
                                 <div className="relative">
-                                    <label htmlFor="serviceInterest" className="block text-sm font-semibold text-stone-700 dark:text-stone-300 mb-2">
+                                    <label htmlFor="serviceInterest" className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         Service Interest
                                     </label>
                                     <div className="relative">
@@ -269,7 +269,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                             <option value="Other">Other / Not Sure</option>
                                         </select>
                                         <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                                            <svg className="w-5 h-5 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg className="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                                             </svg>
                                         </div>
@@ -278,7 +278,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
 
                                 {/* Message Field */}
                                 <div className="relative">
-                                    <label htmlFor="message" className="block text-sm font-semibold text-stone-700 dark:text-stone-300 mb-2">
+                                    <label htmlFor="message" className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                                         Message *
                                     </label>
                                     <textarea
@@ -300,7 +300,7 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                     <button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="group relative w-full py-4 px-8 bg-orange-500 hover:bg-orange-600 disabled:bg-stone-300 dark:disabled:bg-stone-700 text-white font-bold text-lg rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:hover:translate-y-0 overflow-hidden"
+                                        className="group relative w-full py-4 px-8 bg-orange-500 hover:bg-orange-600 disabled:bg-slate-300 dark:disabled:bg-slate-700 text-white font-bold text-lg rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:hover:translate-y-0 overflow-hidden"
                                     >
                                         <span className="relative z-10 flex items-center justify-center gap-2">
                                             {isSubmitting ? (
@@ -325,9 +325,9 @@ const ContactForm = ({ serviceInterest }: ContactFormProps) => {
                                 </div>
 
                                 {/* Privacy Note */}
-                                <p className="text-center text-sm text-stone-500 dark:text-stone-500">
+                                <p className="text-center text-sm text-slate-500 dark:text-slate-500">
                                     By submitting this form, you agree to our{' '}
-                                    <a href="/privacy" className="text-twilight-600 dark:text-twilight-400 hover:underline">Privacy Policy</a>
+                                    <a href="/privacy" className="text-indigo-600 dark:text-indigo-400 hover:underline">Privacy Policy</a>
                                 </p>
                             </form>
                         </div>
