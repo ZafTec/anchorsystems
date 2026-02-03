@@ -1,20 +1,24 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ChatBot from "@/components/ChatBot";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const plusJakartaSans = localFont({
+  src: [
+    {
+      path: "../../public/fonts/plus-jakarta-sans/plus-jakarta-sans-400.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/plus-jakarta-sans/plus-jakarta-sans-600.woff2",
+      weight: "600",
+      style: "normal",
+    },
+  ],
+  variable: "--font-plus-jakarta",
   display: "swap",
   preload: true,
 });
@@ -43,7 +47,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-200`}>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-white dark:bg-twilight-950 text-twilight-900 dark:text-stone-200`}>
         <Navbar />
         <main className="min-h-screen pt-16">
           {children}
