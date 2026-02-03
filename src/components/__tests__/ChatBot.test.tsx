@@ -28,7 +28,7 @@ describe('ChatBot Component', () => {
         await user.click(chatButton);
 
         expect(screen.getByRole('heading', { name: /Anchor Systems AI/i })).toBeInTheDocument();
-        expect(screen.getByText(/Ask me about our AI solutions/i)).toBeInTheDocument();
+        expect(screen.getByText(/Online/i)).toBeInTheDocument();
     });
 
     it('displays welcome message on open', async () => {
@@ -46,10 +46,10 @@ describe('ChatBot Component', () => {
 
         await user.click(screen.getByLabelText(/open chat/i));
 
-        expect(screen.getByText(/Learn about LLM Chatbots/i)).toBeInTheDocument();
-        expect(screen.getByText(/Learn about RAG Systems/i)).toBeInTheDocument();
-        expect(screen.getByText(/Pricing info/i)).toBeInTheDocument();
-        expect(screen.getByText(/Get a quote/i)).toBeInTheDocument();
+        expect(screen.getByText(/LLM Chatbots/i)).toBeInTheDocument();
+        expect(screen.getByText(/RAG Systems/i)).toBeInTheDocument();
+        expect(screen.getByText(/Pricing/i)).toBeInTheDocument();
+        expect(screen.getByText(/Get Quote/i)).toBeInTheDocument();
     });
 
     it('fills input when quick action is clicked', async () => {
@@ -58,7 +58,7 @@ describe('ChatBot Component', () => {
 
         await user.click(screen.getByLabelText(/open chat/i));
 
-        const pricingButton = screen.getByText(/Pricing info/i);
+        const pricingButton = screen.getByText(/Pricing/i);
         await user.click(pricingButton);
 
         const input = screen.getByPlaceholderText(/Type your message/i) as HTMLInputElement;

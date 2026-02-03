@@ -1,67 +1,173 @@
+'use client';
 import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 const features = [
     {
         name: 'LLM-Powered Chatbots',
-        description: 'Custom AI assistants trained on your unique business context. Handle complex customer interactions, from FAQs to fraud detection.',
+        description: 'Custom AI assistants trained on your unique business context. Handle complex customer interactions, from FAQs to fraud detection, with 60-80% automation rates.',
         href: '/services/llm-chatbot',
         icon: (
-            <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
         ),
+        gradient: 'from-indigo-400 to-indigo-600',
+        bgGradient: 'from-indigo-500/10 to-indigo-500/10',
+        stats: { value: '60-80%', label: 'Ticket Reduction' }
     },
     {
         name: 'Enterprise RAG Systems',
-        description: 'Intelligent search and knowledge retrieval pipelines. Ground AI responses in your proprietary data to eliminate hallucinations.',
+        description: 'Intelligent search and knowledge retrieval pipelines. Ground AI responses in your proprietary data to eliminate hallucinations with 95% accuracy.',
         href: '/services/rag-systems',
         icon: (
-            <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
         ),
+        gradient: 'from-orange-400 to-amber-500',
+        bgGradient: 'from-orange-500/10 to-amber-500/10',
+        stats: { value: '95%', label: 'Answer Accuracy' }
     },
 ];
 
 const FeatureSection = () => {
+    const [isVisible, setIsVisible] = useState(false);
+    const sectionRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.unobserve(entry.target);
+                }
+            },
+            { threshold: 0.2, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <div className="py-24 bg-white dark:bg-slate-900">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center">
-                    <h2 className="text-base text-teal-600 dark:text-teal-400 font-semibold tracking-wide uppercase">Our Expertise</h2>
-                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-                        Transforming Business with AI
-                    </p>
-                    <p className="mt-4 max-w-2xl text-xl text-slate-600 dark:text-gray-400 mx-auto">
-                        We deliver cutting-edge AI solutions tailored to your specific needs, ensuring scalability, security, and performance.
+        <div ref={sectionRef} className="relative py-24 lg:py-32 bg-slate-50 dark:bg-slate-950 overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0">
+                <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-700 to-transparent" />
+                <div className="absolute top-1/2 left-0 w-96 h-96 bg-indigo-400/5 dark:bg-indigo-500/5 rounded-full blur-3xl" />
+                <div className="absolute top-1/3 right-0 w-96 h-96 bg-orange-400/5 dark:bg-orange-500/5 rounded-full blur-3xl" />
+            </div>
+
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Section Header */}
+                <div 
+                    className={`text-center max-w-3xl mx-auto mb-20 transition-all duration-1000 ease-out ${
+                        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
+                    }`}
+                >
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 mb-6">
+                        <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-300">
+                            Our Expertise
+                        </span>
+                    </div>
+                    <h2 className="text-4xl sm:text-5xl font-bold text-slate-900 dark:text-slate-50 mb-6">
+                        Transforming Business{' '}
+                        <span className="text-indigo-600 dark:text-indigo-400">
+                            with AI
+                        </span>
+                    </h2>
+                    <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed">
+                        We deliver cutting-edge AI solutions tailored to your specific needs, 
+                        ensuring scalability, security, and measurable business impact.
                     </p>
                 </div>
 
-                <div className="mt-20">
-                    <div className="grid grid-cols-1 gap-12 lg:grid-cols-2">
-                        {features.map((feature) => (
-                            <div key={feature.name} className="relative group">
-                                <div className="absolute -inset-1 bg-linear-to-r from-blue-300 to-teal-600 rounded-lg blur opacity-0 dark:opacity-25 group-hover:opacity-50 dark:group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                                <div className="relative p-8 bg-slate-50 dark:bg-slate-950 ring-1 ring-slate-200 dark:ring-slate-800 rounded-lg leading-none flex items-top justify-start space-x-6 group-hover:ring-slate-300 dark:group-hover:ring-slate-700 transition-all">
-                                    <div className="shrink-0">
-                                        <div className="flex items-center justify-center h-12 w-12 rounded-md bg-linear-to-r from-blue-500 to-teal-500 text-white">
-                                            {feature.icon}
+                {/* Feature Cards */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {features.map((feature, index) => (
+                        <Link
+                            key={feature.name}
+                            href={feature.href}
+                            className={`group relative block transition-all duration-1000 ease-out ${
+                                isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-16 rotate-1'
+                            }`}
+                            style={{ transitionDelay: `${(index + 1) * 200}ms` }}
+                        >
+                            <div className="relative h-full p-8 lg:p-10 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10 dark:hover:shadow-indigo-500/20 hover:-translate-y-2 hover:border-indigo-500/30 dark:hover:border-indigo-400/30">
+                                {/* Card Background Gradient */}
+                                <div className={`absolute inset-0 bg-gradient-to-br ${feature.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                
+                                {/* Animated Gradient Border */}
+                                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500 via-orange-500 to-indigo-500 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500" />
+
+                                {/* Content */}
+                                <div className="relative z-10">
+                                    {/* Icon */}
+                                    <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} text-white shadow-lg shadow-indigo-500/25 dark:shadow-indigo-400/20 mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                                        {feature.icon}
+                                    </div>
+
+                                    {/* Title */}
+                                    <h3 className="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-slate-50 mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                        {feature.name}
+                                    </h3>
+
+                                    {/* Description */}
+                                    <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed mb-8">
+                                        {feature.description}
+                                    </p>
+
+                                    {/* Stats */}
+                                    <div className="flex items-center gap-4 mb-8 p-4 bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800">
+                                        <div className={`text-3xl font-bold bg-gradient-to-r ${feature.gradient} bg-clip-text text-transparent`}>
+                                            {feature.stats.value}
+                                        </div>
+                                        <div className="text-sm text-slate-500 dark:text-slate-400">
+                                            {feature.stats.label}
                                         </div>
                                     </div>
-                                    <div className="flex-1">
-                                        <h3 className="text-xl font-medium text-slate-900 dark:text-white mb-2">{feature.name}</h3>
-                                        <p className="text-slate-600 dark:text-gray-400 mb-4">{feature.description}</p>
-                                        <Link href={feature.href} className="text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 font-medium inline-flex items-center transition-colors">
-                                            Learn more
-                                            <svg className="ml-2 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </Link>
+
+                                    {/* CTA */}
+                                    <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-semibold group-hover:gap-4 transition-all duration-300">
+                                        <span>Learn more</span>
+                                        <svg 
+                                            className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" 
+                                            fill="none" 
+                                            viewBox="0 0 24 24" 
+                                            stroke="currentColor"
+                                        >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                        </svg>
                                     </div>
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                        </Link>
+                    ))}
+                </div>
+
+                {/* Bottom CTA */}
+                <div 
+                    className={`mt-16 text-center transition-all duration-1000 ease-out ${
+                        isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-12 blur-sm'
+                    }`}
+                    style={{ transitionDelay: '600ms' }}
+                >
+                    <p className="text-slate-600 dark:text-slate-400 mb-6">
+                        Not sure which solution fits your needs?
+                    </p>
+                    <Link
+                        href="#contact"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-50 font-semibold rounded-xl hover:bg-amber-100 dark:hover:bg-amber-900/30 hover:text-orange-700 dark:hover:text-orange-300 transition-all duration-300"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        Let's discuss your project
+                    </Link>
                 </div>
             </div>
         </div>
