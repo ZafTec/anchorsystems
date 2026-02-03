@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -59,11 +60,14 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
                     {/* Brand Column */}
                     <div className="lg:col-span-5">
-                        <Link href="/" className="inline-flex items-center gap-2 mb-6">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
-                                <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                                </svg>
+                        <Link href="/" className="inline-flex items-center gap-3 mb-6">
+                            <div className="relative w-10 h-10">
+                                <Image
+                                    src="/logo.png"
+                                    alt="Anchor Systems Logo"
+                                    fill
+                                    className="object-contain"
+                                />
                             </div>
                             <span className="text-2xl font-bold text-slate-900 dark:text-slate-50">
                                 Anchor Systems

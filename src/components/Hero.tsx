@@ -10,7 +10,7 @@ const Hero = () => {
     }, []);
 
     return (
-        <div className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950">
+        <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-slate-950">
             {/* Animated Gradient Background */}
             <div className="absolute inset-0 overflow-hidden">
                 {/* Grid pattern - behind everything with low opacity */}
@@ -22,10 +22,10 @@ const Hero = () => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20 lg:pt-40 lg:pb-32">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center h-full py-16">
                 <div className="text-center">
                     {/* Badge */}
-                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-800/50 border border-orange-300 dark:border-orange-700 shadow-lg mb-8 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ backdropFilter: 'blur(12px)' }}>
+                    <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-slate-800/50 border border-orange-300 dark:border-orange-700 shadow-lg mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ backdropFilter: 'blur(12px)' }}>
                         <span className="flex h-2 w-2 rounded-full bg-orange-500 animate-pulse" />
                         <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
                             AI Solutions for Modern Enterprises
@@ -33,7 +33,7 @@ const Hero = () => {
                     </div>
 
                     {/* Main Heading */}
-                    <h1 className={`text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '100ms' }}>
+                    <h1 className={`text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '100ms' }}>
                         <span className="block text-slate-900 dark:text-slate-100 mb-2">
                             Intelligent AI
                         </span>
@@ -43,19 +43,19 @@ const Hero = () => {
                     </h1>
 
                     {/* Subtitle */}
-                    <p className={`mt-8 max-w-2xl mx-auto text-xl text-slate-600 dark:text-slate-300 leading-relaxed transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '200ms' }}>
+                    <p className={`mt-6 max-w-2xl mx-auto text-lg text-slate-600 dark:text-slate-300 leading-relaxed transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '200ms' }}>
                         We build custom LLM chatbots and enterprise-grade RAG systems that transform your data into actionable intelligence with <span className="text-orange-600 dark:text-orange-400 font-semibold">95% accuracy</span>.
                     </p>
 
                     {/* Stats Row */}
-                    <div className={`mt-12 flex flex-wrap justify-center gap-8 lg:gap-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '300ms' }}>
+                    <div className={`mt-8 flex flex-wrap justify-center gap-6 lg:gap-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '300ms' }}>
                         {[
                             { value: '60-80%', label: 'Support Automation' },
                             { value: '2,000+', label: 'Users Scaled' },
                             { value: '<300ms', label: 'Response Time' },
                         ].map((stat, index) => (
                             <div key={index} className="text-center">
-                                <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
+                                <div className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
                                     {stat.value}
                                 </div>
                                 <div className="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -66,10 +66,10 @@ const Hero = () => {
                     </div>
 
                     {/* CTA Buttons */}
-                    <div className={`mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '400ms' }}>
+                    <div className={`mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: '400ms' }}>
                         <Link
                             href="/services/llm-chatbot"
-                            className="group relative w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 overflow-hidden"
+                            className="group relative w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-orange-500/25 hover:-translate-y-1 overflow-hidden"
                         >
                             <span className="relative z-10 flex items-center justify-center gap-2">
                                 Explore Chatbots
@@ -81,7 +81,7 @@ const Hero = () => {
                         
                         <Link
                             href="/services/rag-systems"
-                            className="group w-full sm:w-auto px-8 py-4 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-semibold rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                            className="group w-full sm:w-auto px-6 py-3 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 font-semibold rounded-xl border-2 border-slate-200 dark:border-slate-700 hover:border-orange-400 dark:hover:border-orange-600 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         >
                             <span className="flex items-center justify-center gap-2">
                                 Discover RAG
@@ -93,9 +93,6 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Bottom Gradient Fade */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 dark:from-slate-950 to-transparent" />
         </div>
     );
 };
