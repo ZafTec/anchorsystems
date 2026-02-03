@@ -65,8 +65,8 @@ const FeatureSection = () => {
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Section Header */}
                 <div 
-                    className={`text-center max-w-3xl mx-auto mb-20 transition-all duration-700 ${
-                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    className={`text-center max-w-3xl mx-auto mb-20 transition-all duration-1000 ease-out ${
+                        isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-12 scale-95'
                     }`}
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-twilight-50 dark:bg-twilight-900/50 border border-twilight-200 dark:border-twilight-700 mb-6">
@@ -92,10 +92,10 @@ const FeatureSection = () => {
                         <Link
                             key={feature.name}
                             href={feature.href}
-                            className={`group relative block transition-all duration-700 ${
-                                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                            className={`group relative block transition-all duration-1000 ease-out ${
+                                isVisible ? 'opacity-100 translate-y-0 rotate-0' : 'opacity-0 translate-y-16 rotate-1'
                             }`}
-                            style={{ transitionDelay: `${(index + 1) * 150}ms` }}
+                            style={{ transitionDelay: `${(index + 1) * 200}ms` }}
                         >
                             <div className="relative h-full p-8 lg:p-10 bg-white dark:bg-twilight-900/50 rounded-3xl border border-stone-200 dark:border-stone-800 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-twilight-500/10 hover:-translate-y-2 hover:border-twilight-500/30">
                                 {/* Card Background Gradient */}
@@ -151,9 +151,10 @@ const FeatureSection = () => {
 
                 {/* Bottom CTA */}
                 <div 
-                    className={`mt-16 text-center transition-all duration-700 delay-500 ${
-                        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    className={`mt-16 text-center transition-all duration-1000 ease-out ${
+                        isVisible ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-12 blur-sm'
                     }`}
+                    style={{ transitionDelay: '600ms' }}
                 >
                     <p className="text-stone-600 dark:text-stone-400 mb-6">
                         Not sure which solution fits your needs?

@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ===== DARK MODE CONFIGURATION ===== */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* ===== LOCAL FONTS ===== */
 @font-face {
   font-family: 'Plus Jakarta Sans';

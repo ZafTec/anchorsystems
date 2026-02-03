@@ -46,10 +46,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-white dark:bg-twilight-950 text-twilight-900 dark:text-stone-200`}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className={`${plusJakartaSans.variable} font-sans antialiased bg-white dark:bg-twilight-950 text-twilight-900 dark:text-stone-200 transition-colors duration-300`}>
         <Navbar />
-        <main className="min-h-screen pt-16">
+        <main className="min-h-screen pt-20">
           {children}
         </main>
         <Footer />
